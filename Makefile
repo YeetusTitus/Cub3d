@@ -1,6 +1,4 @@
-SRCS = 
-
-MAIN = main.c
+SRCS = main.c event.c display_2d.c
 
 DIRECTORYS = srcs/
 
@@ -12,27 +10,30 @@ OBJS =	${SRCSD:.c=.o}
 
 MLXHEADER = mlx/mlx.h
 
-HEADER = include/so_long.h
-
 OFLAGS = -c
 
 NAME   = cub3D
 
-HEAD = -I./include
+%.o: %.c
+	gcc ${OFLAGS} ${EFLAGS}  ${INCLUD} -o $@ $<
 
-%.o: %.c ${HEADER}
-	gcc ${OFLAGS} ${EFLAGS} -o $@ $<
+INCLUD = -I./include
+
+LIBFT = -Llibft -lft
 
 ${NAME}: ${OBJS}
-	gcc  -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) $(MAIN) ${HEAD} ${SRCSD}
+	(cd libft && make)
+	gcc  -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT}
 			
 all:	${NAME}
 
 clean:
 		rm  -f ${OBJS}
+		(cd libft && make clean)
 
 fclean:	clean
 		rm  -f ${NAME}
+		(cd libft && make fclean)
 
 mlx:	
 	(cd mlx && make)
