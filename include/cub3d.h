@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/17 16:32:41 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/18 17:14:04 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ int		move_on_win(int keycode, t_map *map);
 void	change_play(t_map *map, int kc);
 int		wclose(t_map *map);
 int		red_cross(int keycode, int x, int y, t_map *map);
+int		display_mmap(int keycode, t_map *map);
+
+//error
+int		fileverif(t_map *map, char *str, int fd);
+int		ft_puterror(int argc, t_map *map, char *str);
+
+//gnl
+char	*get_next_line(int fd);
+char	*ft_strjoin_v2(char const *s1, char const *s2);
+int		checkchr(const char *str, char ch);
 #endif
