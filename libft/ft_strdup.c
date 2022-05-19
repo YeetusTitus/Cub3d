@@ -31,3 +31,25 @@ char	*ft_strdup(char *src)
 	dest[i] = 0;
 	return (dest);
 }
+
+char	*ft_strndup(char *src, int n)
+{
+	char	*dest;
+	int		i;
+
+	if (n > ft_strlen(src))
+		n = ft_strlen(src);
+	if (n <= 0)
+		return (NULL);
+	dest = (char *) malloc(n * sizeof(char) + 1);
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
+}

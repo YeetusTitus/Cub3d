@@ -1,4 +1,4 @@
-SRCS = main.c event.c display_2d.c
+SRCS = main.c parsing_map.c gnl.c gnl_utils.c event.c display_2d.c check_map.c parsing_utils.c
 
 DIRECTORYS = srcs/
 
@@ -23,8 +23,8 @@ LIBFT = -Llibft -lft
 
 ${NAME}: ${OBJS}
 	(cd libft && make)
-	gcc  -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT}
-			
+	gcc -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT}
+
 all:	${NAME}
 
 clean:

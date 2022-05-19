@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/17 18:06:12 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:28:42 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,23 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
+	t_data	d;
+	int i = -1;
+
+	if (argc == 2)
+	{
+		d.map = get_map(argv);
+		check_map(d.map);
+		d = save_player_pos(d);
+		d.map = erase_whitespace(d.map);
+		while (d.map[++i])
+		{
+			printf("%s\n", d.map[i]);
+		}
+	}
+}
+
+/*	t_map	map;
 
 	(void)(argv);
 	(void)(argc);
@@ -27,8 +43,10 @@ int	main(int argc, char **argv)
 	map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
 	display_minimap(&map, map.play.x, map.play.y);
 	// mlx_key_hook(map.win, move_on_win, &map);
-	mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);
+	mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);\
+	mlx_key_hook(map.win, display_mmap, &map);
 	mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
 	mlx_loop(map.mlx);
 	return (0);
-}
+
+	*/
