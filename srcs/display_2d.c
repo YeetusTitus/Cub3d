@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:50:48 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/17 15:50:56 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/19 14:05:11 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	display_minimap(t_map *map, int x, int y)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (++i < 1024)
+	i = 99;
+	while (++i < 260)
 	{
-		j = -1;
-		while (++j < 520)
+		j = 302;
+		while (++j < 462)
 			mlx_pixel_put(map->mlx, map->win, i, j, 0x00616570);
 	}
 	draw_player(map, x, y, 0x00FFFF00);

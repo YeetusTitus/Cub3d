@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/18 17:14:04 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/19 16:51:34 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ int		ft_puterror(int argc, t_map *map, char *str);
 char	*get_next_line(int fd);
 char	*ft_strjoin_v2(char const *s1, char const *s2);
 int		checkchr(const char *str, char ch);
+
+//utils1
+int		space_line(char	*str);
+
+//map
+int		map_parsing(t_map *map, int fd);
+int		parsing(t_map *map, char **argv);
+
 #endif

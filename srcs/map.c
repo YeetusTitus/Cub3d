@@ -6,17 +6,28 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/18 13:52:24 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/19 16:51:41 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-//M_PI == pi
-// M_PI_2 == pi / 2
+// void	read_to_map(int *fd)
+// {
+// 	while ()
+// }
 
-int	map_parsing(t_map *map, int fd)
+int	map_parsing(t_map *map, int *fd)
 {
+	int	j;
+	int	i;
+
+	read_to_map(*fd);
+	j = -1;
+	while (++j < map->height)
+	{
+		
+	}
 	return (0);
 }
 
