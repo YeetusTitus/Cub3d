@@ -1,4 +1,4 @@
-SRCS = main.c parsing_map.c gnl.c gnl_utils.c event.c display_2d.c check_map.c parsing_utils.c
+SRCS = main.c parsing_map.c gnl.c gnl_utils.c event.c display_2d.c check_map.c parsing_utils.c raycasting.c
 
 DIRECTORYS = srcs/
 

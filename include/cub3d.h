@@ -44,6 +44,39 @@ typedef struct s_map {
 	t_player		play;
 }				t_map;
 
+typedef struct s_play {
+	double	posx; // start pos x
+	double	posy; // start pos y
+	double	dirx; //initial direction vecteurs
+	double	diry; //initial direction vecteurs
+	double	planex;
+	double	planey;
+	double	time;
+	double	oldtime;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		color;
+	void	*image_pointer;
+	void	*mlx;
+	void	*win;
+	void	*my_image_data;
+}	t_play;
+
 typedef struct s_data {
 	int		pos[2];
 	char	orientation;
@@ -78,8 +111,9 @@ char	*ft_memmove_v2(char *dst, char *src, int len);
 
 //parsing map
 int		get_map_size(char **argv);
-char	**get_map(char **argv);
+t_data	get_map(char **argv);
 t_data	save_player_pos(t_data d);
+t_data	get_same_size_all_lines(t_data d);
 
 //check map
 int 	check_nb_player(char **map);
@@ -89,8 +123,14 @@ void    check_map(char **map);
 
 // parsing utils
 int		is_char_ok(char *str);
-char	**erase_whitespace(char **map);
+t_data	erase_whitespace(t_data d);
 int		skip_whitespace(char *str);
 void	free_char_arr(char **map);
+
+// raycasting
+t_play  init_t_play(t_data *d);
+t_play  get_dir_x_y(char c, t_play p);
+void   raycast_loop(t_play *p, t_data *d, int w, int h);
+void    verline(int x, t_play *p);
 
 #endif

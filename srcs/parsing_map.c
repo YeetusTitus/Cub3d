@@ -26,15 +26,15 @@ int	get_map_size(char **argv)
 	return (size);
 }
 
-char	**get_map(char **argv)
+t_data	get_map(char **argv)
 {
-	char	**map;
+	t_data	d;
 	char	*str;
 	int		fd;
 	int		i;
 
 	i = 0;
-	map = malloc(sizeof(char *) * (get_map_size(argv) + 1));
+	d.map = malloc(sizeof(char *) * (get_map_size(argv) + 1));
 	fd = open(argv[1], O_RDONLY);
 	str = get_next_line(fd);
 	while (is_char_ok(str) == 1)
@@ -44,13 +44,13 @@ char	**get_map(char **argv)
 	}
 	while (is_char_ok(str) == 0)
 	{
-		map[i++] = ft_strndup(str, ft_strlen(str) - 1);
+		d.map[i++] = ft_strndup(str, ft_strlen(str) - 1);
 		free(str);
 		str = get_next_line(fd);
 	}
-	map[i] = NULL;
+	d.map[i] = NULL;
 	free(str);
-	return (map);
+	return (d);
 }
 
 t_data save_player_pos(t_data d)
@@ -76,6 +76,30 @@ t_data save_player_pos(t_data d)
 		}
 		i++;
 		j = 0;
+	}
+	return (d);
+}
+
+t_data	get_same_size_all_lines(t_data d)
+{
+	int	i;
+	int	size;
+	
+	i = 0;
+	size = 0;
+	while (d.map[i])
+	{
+		if (ft_strlen_v2(d.map[i]) > size)
+			size = ft_strlen_v2(d.map[i]);
+		i++;
+	}
+	i = 0;
+	while (d.map[i])
+	{
+		if (ft_strlen_v2(d.map[i]) < size)
+			d.map[i] = ft_strjoin_v2(d.map[i], "1");
+		if (ft_strlen_v2(d.map[i]) == size)
+			i++;
 	}
 	return (d);
 }

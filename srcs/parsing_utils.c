@@ -20,25 +20,25 @@ int	is_char_ok(char *str)
 	return (0);
 }
 
-char	**erase_whitespace(char **map)
+t_data	erase_whitespace(t_data d)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (map[i])
+	while (d.map[i])
 	{
-		while (map[i][j])
+		while (d.map[i][j])
 		{
-			if (map[i][j] == '	' || map[i][j] == ' ')
-				map[i][j] = '1';
+			if (d.map[i][j] == '	' || d.map[i][j] == ' ')
+				d.map[i][j] = '1';
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	return (map);
+	return (d);
 }
 
 int	skip_whitespace(char *str)

@@ -15,18 +15,22 @@
 int	main(int argc, char **argv)
 {
 	t_data	d;
-	int i = -1;
+	t_play	*p;
+	t_play	c;
 
+	p = NULL;
 	if (argc == 2)
 	{
-		d.map = get_map(argv);
+		d = get_map(argv);
 		check_map(d.map);
 		d = save_player_pos(d);
-		d.map = erase_whitespace(d.map);
-		while (d.map[++i])
-		{
-			printf("%s\n", d.map[i]);
-		}
+		d = erase_whitespace(d);
+		d = get_same_size_all_lines(d);
+		c = init_t_play(&d);
+		p = &c;
+		p->mlx = mlx_init();
+		p->win = mlx_new_window(p->mlx, 400, 200, "Cub3d");
+		raycast_loop(p, &d, 400, 200);
 	}
 }
 
