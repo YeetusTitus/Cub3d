@@ -71,6 +71,16 @@ typedef struct s_play {
 	int		drawstart;
 	int		drawend;
 	int		color;
+	double	frametime;
+	double	movespeed;
+	double	rotspeed;
+	char	*key;
+	int		hook;
+	double	olddirx;
+	double	oldplanx;
+	int		keyhook;
+
+
 	void	*image_pointer;
 	void	*mlx;
 	void	*win;
@@ -132,5 +142,7 @@ t_play  init_t_play(t_data *d);
 t_play  get_dir_x_y(char c, t_play p);
 void   raycast_loop(t_play *p, t_data *d, int w, int h);
 void    verline(int x, t_play *p);
+double	actual_time(void);
+int    readkeys(int keys, t_play *play);
 
 #endif

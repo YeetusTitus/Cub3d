@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include <sys/time.h>
 
 t_play  init_t_play(t_data *d)
 {
@@ -9,8 +10,8 @@ t_play  init_t_play(t_data *d)
     p = get_dir_x_y(d->orientation, p);
     p.planex = 0;
     p.planey = 0.66; // 66 ou 90 degres? ----> voir le rendue;
-    p.time = 0;
-    p.oldtime = 0;
+    p.time = actual_time();
+    p.oldtime = p.time;
     return (p);
 }
 
@@ -48,8 +49,8 @@ void   raycast_loop(t_play *p, t_data *d, int w, int h)
     W = w * 4;
     b = 32;
     x = 0;
-    while (1)
-    {
+//    while (1)
+//    {
         while (x < w)
         {
             p->camerax = 2 * x / (double)w - 1;
@@ -116,10 +117,57 @@ void   raycast_loop(t_play *p, t_data *d, int w, int h)
             x++;
             printf("x == %d\n", x);
         }
-        mlx_loop(p->mlx);
-//        x = 0;
-
-    }
+       p->oldtime = p->time;
+       p->time = actual_time();
+       p->frametime = (p->time - p->oldtime) / 1000.0;
+//       printf("%f\n", p->frametime);
+       p->movespeed = p->frametime * 5;
+       p->rotspeed = p->frametime * 3;
+       mlx_hook(p->win, 2, 1L<<0, readkeys, p);
+       mlx_clear_window(p->mlx, p->win);
+//    printf("totu bene\n");
+//    printf("%s\n", p->key);
+       mlx_hook(p->win, 2, 1L<<0, readkeys, p);
+        if (p->key)
+        {
+            if (ft_strncmp(p->key, "up", ft_strlen_v2(p->key)) ==  0)
+            {
+                if (d->map[(int)p->posy][(int)p->posx + (int)p->dirx * (int)p->movespeed] == 0)
+                    p->posx += p->dirx * p->movespeed;
+                if (d->map[(int)(p->posy + p->diry * p->movespeed)][(int)(p->posx)] == 0)
+                    p->posy += p->diry * p->movespeed;            
+            }
+            if (ft_strncmp(p->key, "down", ft_strlen_v2(p->key)) == 0)
+            {
+                if (d->map[(int)(p->posy)][(int)(p->posx - p->dirx * p->movespeed)] == 0)
+                    p->posx -= p->dirx * p->movespeed;
+                if (d->map[(int)(p->posy - p->diry * p->movespeed)][(int)(p->posx)] == 0)
+                    p->posy -= p->diry * p->movespeed;
+            }
+            if (ft_strncmp(p->key, "right", ft_strlen_v2(p->key)) == 0)
+            {
+                p->olddirx = p->dirx;
+                p->dirx = p->dirx * cos(-p->rotspeed) - p->diry * sin(-p->rotspeed);
+                p->diry = p->olddirx * sin(-p->rotspeed) + p->diry * cos(-p->rotspeed);
+                p->oldplanx = p->planex;
+                p->planex = p->planex * cos(-p->rotspeed) - p->planey * sin(-p->rotspeed);
+                p->planey = p->oldplanx * sin(-p->rotspeed) + p->planey * cos(-p->rotspeed);
+            }
+            if (ft_strncmp(p->key, "left", ft_strlen_v2(p->key)) == 0)
+            {
+                p->olddirx = p->dirx;
+                p->dirx = p->dirx * cos(p->rotspeed) - p->diry * sin(p->rotspeed);
+                p->diry = p->olddirx * sin(p->rotspeed) + p->diry * cos(p->rotspeed);
+                p->oldplanx = p->planex;
+                p->planex = p->planex * cos(p->rotspeed) + p->planey * sin(p->rotspeed);
+                p->planey = p->oldplanx * sin(p->rotspeed) + p->planey * cos(p->rotspeed);
+            }
+            free(p->key);
+            p->key = NULL;
+        }
+        x = 0;
+      //  mlx_loop(p->mlx);
+//    }
 }
 
 void    verline(int x, t_play *p)
@@ -127,3 +175,34 @@ void    verline(int x, t_play *p)
     while (p->drawstart < p->drawend)
         mlx_pixel_put(p->mlx, p->win, x, p->drawstart++, p->color);
 }
+
+double	actual_time(void)
+{
+	double  		time;
+	struct timeval	tm;
+
+	gettimeofday(&tm, NULL);
+	time = (tm.tv_sec * 1000) + (tm.tv_usec / 1000);
+	return (time);
+}
+
+int    readkeys(int keys, t_play *p)
+{
+    if (keys == 126)
+        p->key = ft_strdup("up");
+    if (keys == 125)
+        p->key = ft_strdup("down");
+    if (keys == 124)
+        p->key = ft_strdup("left");
+    if (keys == 123)
+        p->key = ft_strdup("right");
+    return (0);
+}
+
+/*
+char    *get_key(int keys)
+{
+    char    *ret;
+    if (key == )
+}
+*/

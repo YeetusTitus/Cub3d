@@ -30,7 +30,9 @@ int	main(int argc, char **argv)
 		p = &c;
 		p->mlx = mlx_init();
 		p->win = mlx_new_window(p->mlx, 400, 200, "Cub3d");
+		mlx_loop_hook(p->mlx, 0, p);
 		raycast_loop(p, &d, 400, 200);
+        mlx_loop(p->mlx);
 	}
 }
 
