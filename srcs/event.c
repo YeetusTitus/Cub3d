@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:57:09 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 16:06:46 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/24 16:59:03 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	change_play(t_map *map, int kc)
 		map->play.x -= round(cos(map->play.degre) * 5);
 		map->play.y -= round(sin(map->play.degre) * 5);
 	}
+	//temporaire
 	draw_player(map, tempx, tempy, 0x00000000);
 	draw_player(map, map->play.x, map->play.y, 0x00FFFF00);
 }
