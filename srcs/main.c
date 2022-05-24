@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/18 16:28:42 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/24 15:57:30 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,21 @@ int	main(int argc, char **argv)
 	map.play.x = 506;
 	map.play.y = 203;
 	map.play.degre = 3 * M_PI_2;
+	if (parsing(&map, argv))
+		return (ft_puterror(argc, &map));
 	// map.play.dx = round(cos(3 * M_PI_2) * 5);
 	// map.play.dy = round(sin(3 * M_PI_2) * 5);
 	map.mlx = mlx_init();
-	map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
-	display_minimap(&map, map.play.x, map.play.y);
-	// mlx_key_hook(map.win, move_on_win, &map);
-	mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);\
-	mlx_key_hook(map.win, display_mmap, &map);
-	mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
-	mlx_loop(map.mlx);
+	// map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
+	// draw_map(&map);
+	// display_minimap(&map, map.play.x, map.play.y);
+	// // mlx_key_hook(map.win, move_on_win, &map);
+	// mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);
+	// mlx_key_hook(map.win, display_mmap, &map);
+	// mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
+	// mlx_loop(map.mlx);
+	delete_screen(&map);
+	// freedom(&map);
+	// system("leaks cub3D");
 	return (0);
 }

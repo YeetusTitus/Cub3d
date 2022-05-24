@@ -1,10 +1,10 @@
-SRCS = main.c event.c display_2d.c
+SRCS = main.c map.c error.c utils1.c gnl.c
 
 DIRECTORYS = srcs/
 
 SRCSD =	$(addprefix ${DIRECTORYS}, $(SRCS))
 
-EFLAGS = -Wall -Wextra -Werror
+EFLAGS = -Wall -Wextra -Werror -g
 
 OBJS =	${SRCSD:.c=.o}
 

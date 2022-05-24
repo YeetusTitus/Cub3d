@@ -1,17 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   map2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/18 16:22:02 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 16:05:52 by jforner          ###   ########.fr       */
+/*   Created: 2022/05/23 19:14:26 by jforner           #+#    #+#             */
+/*   Updated: 2022/05/23 19:49:19 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	createminimap(t_map *map)
+int	map_parsing(t_map *map, char **file)
 {
+	int	j;
+	int	i;
+
+	j = -1;
+	while (++j < map->height)
+	{
+		
+	}
+	return (0);
 }
