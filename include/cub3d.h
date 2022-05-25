@@ -51,8 +51,6 @@ typedef struct s_play {
 	double	diry; //initial direction vecteurs
 	double	planex;
 	double	planey;
-	double	time;
-	double	oldtime;
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
@@ -143,7 +141,14 @@ t_play  init_t_play(t_data *d);
 t_play  get_dir_x_y(char c, t_play p);
 void   raycast_loop(t_play *p, int w, int h);
 void    verline(int x, t_play *p);
-double	actual_time(void);
 int    readkeys(int keys, t_play *play);
+t_play  *get_step_n_sidedist_incr(t_play *p);
+t_play  *get_hit(t_play *p);
+
+// mouvements
+int move_up(t_play *p);
+int move_down(t_play *p);
+int	rotate_left(t_play *p);
+int	rotate_right(t_play *p);
 
 #endif

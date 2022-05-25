@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/18 16:28:42 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/25 18:48:16 by ktroude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,15 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		d = get_map(argv);
-	//	check_map(d.map);
+		//	check_map(d.map);
 		d = save_player_pos(d);
 		d = erase_whitespace(d);
 		d = get_same_size_all_lines(d);
 		c = init_t_play(&d);
 		p = &c;
-		printf("%s\n", p->map[0]);
 		p->mlx = mlx_init();
 		p->win = mlx_new_window(p->mlx, 400, 200, "Cub3d");
 		raycast_loop(p, 400, 200);
-    	mlx_loop(p->mlx);
+		mlx_loop(p->mlx);
 	}
 }
-
-/*	t_map	map;
-
-	(void)(argv);
-	(void)(argc);
-	map.play.x = 506;
-	map.play.y = 203;
-	map.play.degre = 3 * M_PI_2;
-	// map.play.dx = round(cos(3 * M_PI_2) * 5);
-	// map.play.dy = round(sin(3 * M_PI_2) * 5);
-	map.mlx = mlx_init();
-	map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
-	display_minimap(&map, map.play.x, map.play.y);
-	// mlx_key_hook(map.win, move_on_win, &map);
-	mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);\
-	mlx_key_hook(map.win, display_mmap, &map);
-	mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
-	mlx_loop(map.mlx);
-	return (0);
-
-	*/

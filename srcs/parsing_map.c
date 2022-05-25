@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ktroude <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
+/*   Updated: 2022/05/25 18:46:27 by ktroude          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	get_map_size(char **argv)
@@ -53,10 +65,10 @@ t_data	get_map(char **argv)
 	return (d);
 }
 
-t_data save_player_pos(t_data d)
+t_data	save_player_pos(t_data d)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -84,7 +96,7 @@ t_data	get_same_size_all_lines(t_data d)
 {
 	int	i;
 	int	size;
-	
+
 	i = 0;
 	size = 0;
 	while (d.map[i])
