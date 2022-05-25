@@ -22,17 +22,17 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		d = get_map(argv);
-		check_map(d.map);
+	//	check_map(d.map);
 		d = save_player_pos(d);
 		d = erase_whitespace(d);
 		d = get_same_size_all_lines(d);
 		c = init_t_play(&d);
 		p = &c;
+		printf("%s\n", p->map[0]);
 		p->mlx = mlx_init();
 		p->win = mlx_new_window(p->mlx, 400, 200, "Cub3d");
-		mlx_loop_hook(p->mlx, 0, p);
-		raycast_loop(p, &d, 400, 200);
-        mlx_loop(p->mlx);
+		raycast_loop(p, 400, 200);
+    	mlx_loop(p->mlx);
 	}
 }
 

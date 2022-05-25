@@ -79,7 +79,8 @@ typedef struct s_play {
 	double	olddirx;
 	double	oldplanx;
 	int		keyhook;
-
+	int		x;
+	char		**map;
 
 	void	*image_pointer;
 	void	*mlx;
@@ -140,7 +141,7 @@ void	free_char_arr(char **map);
 // raycasting
 t_play  init_t_play(t_data *d);
 t_play  get_dir_x_y(char c, t_play p);
-void   raycast_loop(t_play *p, t_data *d, int w, int h);
+void   raycast_loop(t_play *p, int w, int h);
 void    verline(int x, t_play *p);
 double	actual_time(void);
 int    readkeys(int keys, t_play *play);
