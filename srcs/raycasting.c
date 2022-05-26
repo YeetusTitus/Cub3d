@@ -6,7 +6,7 @@
 /*   By: ktroude <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/25 18:43:27 by ktroude          ###   ########.fr       */
+/*   Updated: 2022/05/25 18:51:20 by ktroude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,20 @@ void	raycast_loop(t_play *p, int w, int h)
 		p->hit = 0;
 		p = get_step_n_sidedist_incr(p);
 		while (p->hit == 0)
-			p = get_hit(p);
-		p->color = 0x00FF0000;
-		p->color = p->color / 2;
+			p = get_hit(p, h);
+		if (p->side > 0 && p->stepy > 0) // face sud
+			p->color = 0x00FF0000;
+		if (p->side > 0 && p->stepy <= 0) // face nord
+			p->color = 0x00FF0000 / 2;
+		if (p->side == 0 && p->stepx > 0) // face ouest
+			p->color = 0x00FF0000 / 4;
+		if (p->side == 0 && p->stepx <= 0) // est
+			p->color = 0x00FF0000 / 6;
+
 		verline(x, p);
 	}
-	p->movespeed = 0.5;
-	p->rotspeed = 0.3;
+	p->movespeed = 0.2;
+	p->rotspeed = 0.1;
 	mlx_hook(p->win, 2, 1L << 0, readkeys, p);
 	mlx_loop(p->mlx);
 }
@@ -111,7 +118,7 @@ t_play	*get_step_n_sidedist_incr(t_play *p)
 	return (p);
 }
 
-t_play	*get_hit(t_play *p)
+t_play	*get_hit(t_play *p, int h)
 {
 	if (p->sidedistx < p->sidedisty)
 	{
@@ -140,3 +147,41 @@ t_play	*get_hit(t_play *p)
 		p->drawend = h - 1;
 	return (p);
 }
+
+
+
+/*
+t_play	*get_texture(t_play *p, int h, int w)
+{
+	int	**tab;
+	int	i;
+	int	***arr;
+
+	i = 0;
+	tab = malloc(sizeof(int *) * h);
+	while (i++ < h)
+		tab[i] = malloc(sizeof(int) * w);
+	i = 0;
+	arr = malloc(sizeof(int **) * 4); // nb de texture a modifier ici;
+	while (i++ < 4)
+		arr[i] = malloc(sizeof(tab));
+	i = 0;
+	while (i < h)
+		free(tab[i++]);
+	free(tab);
+	p->texture = arr;
+	return (p);
+}
+
+t_play	*generate_texture(t_play *p)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x++ < )
+
+}
+
+*/

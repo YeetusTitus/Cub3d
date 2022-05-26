@@ -72,13 +72,15 @@ typedef struct s_play {
 	double	frametime;
 	double	movespeed;
 	double	rotspeed;
-	char	*key;
-	int		hook;
 	double	olddirx;
 	double	oldplanx;
 	int		keyhook;
 	int		x;
-	char		**map;
+	char	**map;
+	int		***texture;
+
+
+
 
 	void	*image_pointer;
 	void	*mlx;
@@ -143,7 +145,7 @@ void   raycast_loop(t_play *p, int w, int h);
 void    verline(int x, t_play *p);
 int    readkeys(int keys, t_play *play);
 t_play  *get_step_n_sidedist_incr(t_play *p);
-t_play  *get_hit(t_play *p);
+t_play  *get_hit(t_play *p, int h);
 
 // mouvements
 int move_up(t_play *p);

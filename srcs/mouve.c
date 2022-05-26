@@ -14,6 +14,7 @@
 
 int	readkeys(int keys, t_play *p)
 {
+	printf("dir x = %f  | dir y = %f\n", p->dirx, p->diry);
 	if (keys == 126)
 		return (move_up(p));
 	if (keys == 125)
