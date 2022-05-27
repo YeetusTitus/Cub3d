@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:12:10 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 15:31:29 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:49:29 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	space_line(char	*str, int lenght)
 	i = -1;
 	while (str[++i] && i < lenght)
 	{
-		if ((str[i] < 7 || str[i] > 13) && !(str[i] == ' '))
+		if (is_space(str[i]))
 			return (0);
 	}
 	return (1);
@@ -51,6 +51,12 @@ void	delete_screen(t_map *map)
 	mlx_destroy_image(map->mlx, map->color.south);
 }
 
+int	is_space(char c)
+{
+	if ((c < 7 || c > 13) && !(c == ' '))
+		return (1);
+	return (0);
+}
 // void	freedom(t_map *map)
 // {
 // }

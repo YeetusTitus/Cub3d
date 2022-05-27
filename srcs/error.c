@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:22:11 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 15:56:42 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:15:03 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_puterror(int argc, t_map *map)
 		if (map->error == 'N')
 			ft_putstr_fd("No character in the file", 2);
 		if (map->error == 'F')
-			ft_putstr_fd("It's not a .cub file", 2);
+			ft_putstr_fd("Not the good extension", 2);
 		if (map->error == 'I')
 			ft_putstr_fd("Invalid information(s) in options", 2);
 		if (map->error == 'O')
@@ -37,7 +37,7 @@ int	ft_puterror(int argc, t_map *map)
 	else
 		ft_putstr_fd(strerror(errno), 2);
 	ft_putchar_fd('\n', 2);
-	system("leaks cub3D");
+	// system("leaks cub3D");
 	return (1);
 }
 
@@ -58,7 +58,7 @@ int	fileverif(t_map *map, char *str, int fd, char c)
 			&& str[i + 3] == 'm' && str[i + 4] == '\0')
 			return (0);
 	}
-	map->error = 'm';
+	map->error = 'F';
 	close(fd);
 	return (1);
 }

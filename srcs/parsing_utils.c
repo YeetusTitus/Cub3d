@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:49:34 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/24 18:19:36 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:51:17 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,34 @@ int	is_char_ok(char *str)
 			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int	closed_room(char **file, t_map *map, int j)
+{
+	static int	countline = 0;
+	int			i;
+
+	i = -1;
+	while (file[j][++i])
+	{
+		if ((file[j + 1] == NULL || !countline)
+			&& file[j][i] != '1' && file[j][i] != '\t' && file[j][i] != ' ')
+			map->error = '1';
+		else if (file[j + 1] != NULL && countline)
+		{
+			if ((is_space(str[i]) || file[j][i + 1] == '\0')
+				&& file[j][i] != '1')
+				map->error = '1';
+			else if (i == 0 && file[j][i] != '\t' || file[j][i] != ' '
+				&& file[j][i] != '1')
+				map->error = '1';
+
+		}
+		if (map->error != '0')
+			return (1);
+	}
+	countline++;
 	return (0);
 }
 

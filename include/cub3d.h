@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 15:37:03 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:16:18 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_color {
 typedef struct s_map {
 	int				lenght;
 	int				height;
+	int				nbplayer;
 	char			**minimap;
 	char			**map;
 	char			error;

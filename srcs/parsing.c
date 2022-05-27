@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 16:04:56 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 15:36:50 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,18 @@ int	options_switch(t_map *map, char **parse)
 	return (0);
 }
 
-int	param_parsing(t_map *map, char **file)
+int	param_parsing(t_map *map, char **file, int *i)
 {
 	char	**parse;
-	int		i;
 	int		count;
 
 	count = 6;
-	i = -1;
-	while (file[++i] != NULL)
+	*i = -1;
+	while (file[++(*i)] != NULL)
 	{
-		if (!space_line(file[i], ft_strlen(file[i])))
+		if (!space_line(file[*i], ft_strlen(file[*i])))
 		{
-			parse = ft_split(file[i], ' ');
+			parse = ft_split(file[*i], ' ');
 			if (tablen(parse) != 2 || options_switch(map, parse))
 			{
 				map->error = 'I';
@@ -114,6 +113,7 @@ int	parsing(t_map *map, char **argv)
 	int		fd;
 	char	*line;
 	char	**file;
+	int		i;
 
 	map->error = '0';
 	fd = open(argv[1], O_RDONLY);
@@ -128,7 +128,7 @@ int	parsing(t_map *map, char **argv)
 	}
 	file = ft_split(line, '\n');
 	free(line);
-	if (param_parsing(map, file))
+	if (param_parsing(map, file, &i) || get_map(file, map, *i))
 	{
 		ft_malloc_error(file, tablen(file));
 		return (1);

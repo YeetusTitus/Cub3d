@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:08:43 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/24 18:26:00 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:39:50 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ int	get_map_size(char **argv)
 	if (fd < 0)
 		return (0);
 	str = get_next_line(fd);
-	close(fd);
-	while (is_char_ok(str) == 1)
-	{
-		free(str);
-		str = get_next_line(fd);
-	}
 	while (is_char_ok(str) == 0)
 	{
 		size++;
@@ -36,32 +30,8 @@ int	get_map_size(char **argv)
 		str = get_next_line(fd);
 	}
 	free(str);
+	close(fd);
 	return (size);
-}
-
-void	get_map(char **argv, t_map *map)
-{
-	char	*str;
-	int		fd;
-	int		i;
-
-	i = 0;
-	map->map = malloc(sizeof(char *) * (get_map_size(argv) + 1));
-	fd = open(argv[1], O_RDONLY);
-	str = get_next_line(fd);
-	while (is_char_ok(str) == 1)
-	{
-		free(str);
-		str = get_next_line(fd);
-	}
-	while (is_char_ok(str) == 0)
-	{
-		map->map[i++] = ft_strndup(str, ft_strlen(str) - 1);
-		free(str);
-		str = get_next_line(fd);
-	}
-	map->map[i] = NULL;
-	free(str);
 }
 
 void	save_player_pos(t_map *map)
@@ -112,4 +82,21 @@ t_data	get_same_size_all_lines(t_data d)
 			i++;
 	}
 	return (d);
+}
+
+void	verif_map(char **file, t_map *map, int *i)
+{
+	char	*str;
+	int		i;
+
+	// map->map = malloc(sizeof(char *) * (get_map_size(argv) + 1));
+	while (space_line(file[i], ft_strlen(file[i])))
+		(*i)++;
+	while ([*i])
+	{
+		map->map[(*i)++] = ft_strndup(str, ft_strlen(str) - 1);
+		map->height++;
+	}
+	map->map[*i] = NULL;
+	get_map();
 }

@@ -1,4 +1,4 @@
-SRCS = main.c map.c error.c utils1.c gnl.c
+SRCS = main.c parsing.c error.c utils1.c gnl.c
 
 DIRECTORYS = srcs/
 
