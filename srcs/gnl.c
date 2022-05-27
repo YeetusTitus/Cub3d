@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:52:28 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 10:49:50 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:12:14 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_strjoin_v2(char *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_cat(int fd)
+char	*get_next_line(int fd)
 {
 	char	buff[2];
 	char	*line;
@@ -62,7 +62,7 @@ char	*ft_cat(int fd)
 	line = malloc(1);
 	line[0] = 0;
 	buff[1] = 0;
-	while (error)
+	while (error && checkchr(line, '\n'))
 	{
 		error = read(fd, buff, 1);
 		if (error == -1)

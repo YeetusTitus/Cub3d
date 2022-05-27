@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:49:34 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/27 15:51:17 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 23:21:50 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	is_char_ok(char *str)
 		return (1);
 	while (str[i])
 	{
-		if (ft_strlen_v2(str) < 3)
-			return (1);
-		if (str[i] != ' ' && str[i] != '	' && str[i] != '1' && str[i] != '0'
+		if (str[i] != ' ' && str[i] != '1' && str[i] != '0'
 			&& str[i] != 'N' && str[i] != 'S' && str[i] != 'E'
 			&& str[i] != 'W' && str[i] != 3)
 			return (1);
@@ -32,30 +30,54 @@ int	is_char_ok(char *str)
 	return (0);
 }
 
+void	trick_room(char **f, t_map *map, int j, int i)
+{
+	if ((f[j][i + 1] == ' ' || f[j][i + 1] == '\n' || f[j][i + 1] == '\0')
+		&& f[j][i] != '1' && f[j][i + 1] != ' ')
+		map->error = '1';
+	// printf("trick 0 = %c\t j = %d\t i = %d\n", map->error, j, i);
+	if ((i > 0 && f[j][i + 1] == ' ') && f[j][i] != '1' && f[j][i + 1] != ' ')
+		map->error = '1';
+	// printf("trick 1 = %c\t j = %d\t i = %d\n", map->error, j, i);
+	if (i == 0 && f[j][i + 1] != ' ' && f[j][i] != '1')
+		map->error = '1';
+	// printf("trick 2 = %c\t j = %d\t i = %d\n", map->error, j, i);
+	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
+		|| f[j][i] == 'W' || f[j][i] == 'S')
+			&& (i >= ft_strlen(f[j - 1]) || f[j - 1][i] == ' '))
+		map->error = '1';
+	// printf("trick 3 = %c\t j = %d\t i = %d\n", map->error, j, i);
+	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
+		|| f[j][i] == 'W' || f[j][i] == 'S')
+			&& (i >= ft_strlen(f[j + 1]) || f[j +1][i] == ' '))
+		map->error = '1';
+	// printf("trick 4 = %c\t j = %d\t i = %d\n", map->error, j, i);
+}
+
 int	closed_room(char **file, t_map *map, int j)
 {
 	static int	countline = 0;
 	int			i;
 
 	i = -1;
-	while (file[j][++i])
+	if (is_char_ok(file[j]))
+		map->error = 'C';
+	while (file[j][++i] != 0)
 	{
+		if (i == 0)
+			printf("%d!\n", file[j][i]);
+		if (file[j][i] == 'E' || file[j][i] == 'N' || file[j][i] == 'W'
+			|| file[j][i] == 'S')
+			map->nbplayer++;
 		if ((file[j + 1] == NULL || !countline)
-			&& file[j][i] != '1' && file[j][i] != '\t' && file[j][i] != ' ')
+			&& file[j][i] != '1' && file[j][i] != ' ')
 			map->error = '1';
 		else if (file[j + 1] != NULL && countline)
-		{
-			if ((is_space(str[i]) || file[j][i + 1] == '\0')
-				&& file[j][i] != '1')
-				map->error = '1';
-			else if (i == 0 && file[j][i] != '\t' || file[j][i] != ' '
-				&& file[j][i] != '1')
-				map->error = '1';
-
-		}
+			trick_room(file, map, j, i);
 		if (map->error != '0')
 			return (1);
 	}
+	printf("\n");
 	countline++;
 	return (0);
 }
@@ -64,7 +86,6 @@ void	erase_whitespace(t_map *map)
 {
 	int	i;
 	int	j;
-	int	tab;
 
 	i = 0;
 	while (map->map[i])
@@ -74,24 +95,33 @@ void	erase_whitespace(t_map *map)
 		{
 			if (map->map[i][j] == ' ')
 				map->map[i][j] = '1';
-			else if (map->map[i][j] == '\t')
-			{
-				tab = 4 - (j % 4);
-				while (tab-- > 0)
-					map->map[i][j] = '1';
-			}
 			j++;
 		}
 		i++;
 	}
 }
 
-int	skip_whitespace(char *str)
+char	**get_file(t_map *map, char *argv)
 {
-	int	i;
+	int		i;
+	int		fd;
+	int		len;
+	char	**file;
 
-	i = 0;
-	while (str[i] == '\t' || str[i] == ' ')
-		i++;
-	return (i);
+	i = -1;
+	len = get_file_size(argv);
+	if (!len)
+	{
+		map->error = 'N';
+		return (NULL);
+	}
+	file = malloc((sizeof(char *) * len) + 1);
+	fd = open(argv, O_RDONLY);
+	while (++i < len)
+	{
+		file[i] = get_next_line(fd);
+		file[i][ft_strlen(file[i]) - 1] = 0;
+	}
+	close(fd);
+	return (file);
 }

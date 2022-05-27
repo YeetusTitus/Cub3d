@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/27 15:36:50 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 23:24:06 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	param_parsing(t_map *map, char **file, int *i)
 int	parsing(t_map *map, char **argv)
 {
 	int		fd;
-	char	*line;
 	char	**file;
 	int		i;
 
@@ -119,16 +118,11 @@ int	parsing(t_map *map, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || fileverif(map, argv[1], fd, 'c'))
 		return (1);
-	line = ft_cat(fd);
 	close(fd);
-	if (line == NULL)
-	{
-		map->error = 'N';
+	file = get_file(map, argv[1]);
+	if (file == NULL)
 		return (1);
-	}
-	file = ft_split(line, '\n');
-	free(line);
-	if (param_parsing(map, file, &i) || get_map(file, map, *i))
+	if (param_parsing(map, file, &i) || verif_map(file, map, i + 1))
 	{
 		ft_malloc_error(file, tablen(file));
 		return (1);

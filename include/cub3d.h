@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/27 15:16:18 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/27 21:07:22 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		fileverif(t_map *map, char *str, int fd, char c);
 int		ft_puterror(int argc, t_map *map);
 
 //gnl
-char	*ft_cat(int fd);
+char	*get_next_line(int fd);
 char	*ft_strjoin_v2(char *s1, char const *s2);
 int		checkchr(const char *str, char ch);
 
@@ -81,14 +81,25 @@ int		space_line(char	*str, int lenght);
 int		tablen(char **tabl);
 int		ft_malloc_error(char **tab, int size);
 void	delete_screen(t_map *map);
+int		is_space(char c);
 
 // void	freedom(t_map *map);
 
-//map
+//parsing
 int		map_parsing(t_map *map, char **file);
 int		parsing(t_map *map, char **argv);
 int		create_color(int *array, char *parse);
 int		options_switch2(t_map *map, char **parse, int direction[6]);
 int		options_switch(t_map *map, char **parse);
+
+//parsing map
+int		verif_map(char **file, t_map *map, int i);
+int		get_file_size(char *argv);
+
+//parsing_utils
+int		closed_room(char **file, t_map *map, int j);
+void	trick_room(char **f, t_map *map, int j, int i);
+int		is_char_ok(char *str);
+char	**get_file(t_map *map, char *argv);
 
 #endif
