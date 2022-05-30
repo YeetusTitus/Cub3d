@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/30 16:06:20 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/30 17:06:01 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	main(int argc, char **argv)
 	printf("Parsing Bon !\n");
 	delete_screen(&map);
 	freedom(&map);
-	system("leaks cub3D");
+	// system("leaks cub3D");
 	return (0);
 }

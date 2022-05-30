@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:08:43 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/30 16:31:39 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/30 17:06:56 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,56 +33,6 @@ int	get_file_size(char *argv)
 	close(fd);
 	return (size);
 }
-
-// void	save_player_pos(t_map *map)
-// {
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (map->map[i])
-// 	{
-// 		while (map->map[i][j])
-// 		{
-// 			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-// 				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
-// 			{
-// 				map->play.x = i;
-// 				map->play.y = j;
-// 				map->play.degre = map->map[i][j];
-// 				map->map[i][j] = '0';
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 		j = 0;
-// 	}
-// }
-// 
-// t_data	get_same_size_all_lines(t_data d)
-// {
-// 	int	i;
-// 	int	size;
-// 
-// 	i = 0;
-// 	size = 0;
-// 	while (d.map[i])
-// 	{
-// 		if (ft_strlen_v2(d.map[i]) > size)
-// 			size = ft_strlen_v2(d.map[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (d.map[i])
-// 	{
-// 		if (ft_strlen_v2(d.map[i]) < size)
-// 			d.map[i] = ft_strjoin_v2(d.map[i], "1");
-// 		if (ft_strlen_v2(d.map[i]) == size)
-// 			i++;
-// 	}
-// 	return (d);
-// }
 
 int	verif_map(char **file, t_map *map, int i)
 {
@@ -128,9 +78,29 @@ void	get_map(char **file, t_map *map, int i)
 				map->map[j][k] = file[i][k];
 			else
 				map->map[j][k] = '1';
+			save_player_pos(map, j, k);
 		}
 		map->map[j][k] = 0;
 		i++;
 	}
 	map->map[++j] = NULL;
+}
+
+void	save_player_pos(t_map *map, int x, int y)
+{
+	if (map->map[x][y] == 'N' || map->map[x][y] == 'S'
+		|| map->map[x][y] == 'E' || map->map[x][y] == 'W')
+	{
+		map->play.x = x;
+		map->play.y = y;
+		map->map[x][y] = '0';
+		if (map->map[x][y] == 'E')
+			map->play.degre = 0;
+		if (map->map[x][y] == 'N')
+			map->play.degre = M_PI_2;
+		if (map->map[x][y] == 'W')
+			map->play.degre = M_PI;
+		if (map->map[x][y] == 'S')
+			map->play.degre = 3 * M_PI_2;
+	}
 }

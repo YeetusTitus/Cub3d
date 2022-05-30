@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/30 16:05:47 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/30 17:04:26 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		options_switch(t_map *map, char **parse);
 int		verif_map(char **file, t_map *map, int i);
 int		get_file_size(char *argv);
 void	get_map(char **file, t_map *map, int i);
+void	save_player_pos(t_map *map, int x, int y);
 
 //parsing_utils
 int		closed_room(char **file, t_map *map, int j);
