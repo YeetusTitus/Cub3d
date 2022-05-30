@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/27 21:07:22 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:05:47 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int		ft_malloc_error(char **tab, int size);
 void	delete_screen(t_map *map);
 int		is_space(char c);
 
-// void	freedom(t_map *map);
+//utils 2
+void	freedom(t_map *map);
 
 //parsing
 int		map_parsing(t_map *map, char **file);
@@ -95,6 +96,7 @@ int		options_switch(t_map *map, char **parse);
 //parsing map
 int		verif_map(char **file, t_map *map, int i);
 int		get_file_size(char *argv);
+void	get_map(char **file, t_map *map, int i);
 
 //parsing_utils
 int		closed_room(char **file, t_map *map, int j);

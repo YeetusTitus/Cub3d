@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:49:34 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/27 23:21:50 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:02:24 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,20 @@ int	is_char_ok(char *str)
 void	trick_room(char **f, t_map *map, int j, int i)
 {
 	if ((f[j][i + 1] == ' ' || f[j][i + 1] == '\n' || f[j][i + 1] == '\0')
-		&& f[j][i] != '1' && f[j][i + 1] != ' ')
+		&& f[j][i] != '1' && f[j][i] != ' ')
 		map->error = '1';
-	// printf("trick 0 = %c\t j = %d\t i = %d\n", map->error, j, i);
-	if ((i > 0 && f[j][i + 1] == ' ') && f[j][i] != '1' && f[j][i + 1] != ' ')
+	if ((i > 0 && f[j][i - 1] == ' ') && f[j][i] != '1' && f[j][i] != ' ')
 		map->error = '1';
-	// printf("trick 1 = %c\t j = %d\t i = %d\n", map->error, j, i);
 	if (i == 0 && f[j][i + 1] != ' ' && f[j][i] != '1')
 		map->error = '1';
-	// printf("trick 2 = %c\t j = %d\t i = %d\n", map->error, j, i);
 	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
 		|| f[j][i] == 'W' || f[j][i] == 'S')
 			&& (i >= ft_strlen(f[j - 1]) || f[j - 1][i] == ' '))
 		map->error = '1';
-	// printf("trick 3 = %c\t j = %d\t i = %d\n", map->error, j, i);
 	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
 		|| f[j][i] == 'W' || f[j][i] == 'S')
 			&& (i >= ft_strlen(f[j + 1]) || f[j +1][i] == ' '))
 		map->error = '1';
-	// printf("trick 4 = %c\t j = %d\t i = %d\n", map->error, j, i);
 }
 
 int	closed_room(char **file, t_map *map, int j)
@@ -64,8 +59,6 @@ int	closed_room(char **file, t_map *map, int j)
 		map->error = 'C';
 	while (file[j][++i] != 0)
 	{
-		if (i == 0)
-			printf("%d!\n", file[j][i]);
 		if (file[j][i] == 'E' || file[j][i] == 'N' || file[j][i] == 'W'
 			|| file[j][i] == 'S')
 			map->nbplayer++;
@@ -77,7 +70,6 @@ int	closed_room(char **file, t_map *map, int j)
 		if (map->error != '0')
 			return (1);
 	}
-	printf("\n");
 	countline++;
 	return (0);
 }
@@ -123,5 +115,6 @@ char	**get_file(t_map *map, char *argv)
 		file[i][ft_strlen(file[i]) - 1] = 0;
 	}
 	close(fd);
+	file[i] = NULL;
 	return (file);
 }
