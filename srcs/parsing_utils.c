@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:49:34 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/30 16:02:24 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:45:52 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,70 +30,51 @@ int	is_char_ok(char *str)
 	return (0);
 }
 
-void	trick_room(char **f, t_map *map, int j, int i)
+void	trick_room(char **f, t_play *play, int j, int i)
 {
 	if ((f[j][i + 1] == ' ' || f[j][i + 1] == '\n' || f[j][i + 1] == '\0')
 		&& f[j][i] != '1' && f[j][i] != ' ')
-		map->error = '1';
+		play->error = '1';
 	if ((i > 0 && f[j][i - 1] == ' ') && f[j][i] != '1' && f[j][i] != ' ')
-		map->error = '1';
+		play->error = '1';
 	if (i == 0 && f[j][i + 1] != ' ' && f[j][i] != '1')
-		map->error = '1';
+		play->error = '1';
 	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
 		|| f[j][i] == 'W' || f[j][i] == 'S')
 			&& (i >= ft_strlen(f[j - 1]) || f[j - 1][i] == ' '))
-		map->error = '1';
+		play->error = '1';
 	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
 		|| f[j][i] == 'W' || f[j][i] == 'S')
 			&& (i >= ft_strlen(f[j + 1]) || f[j +1][i] == ' '))
-		map->error = '1';
+		play->error = '1';
 }
 
-int	closed_room(char **file, t_map *map, int j)
+int	closed_room(char **file, t_play *play, int j)
 {
 	static int	countline = 0;
 	int			i;
 
 	i = -1;
 	if (is_char_ok(file[j]))
-		map->error = 'C';
+		play->error = 'C';
 	while (file[j][++i] != 0)
 	{
 		if (file[j][i] == 'E' || file[j][i] == 'N' || file[j][i] == 'W'
 			|| file[j][i] == 'S')
-			map->nbplayer++;
+			play->nbplayer++;
 		if ((file[j + 1] == NULL || !countline)
 			&& file[j][i] != '1' && file[j][i] != ' ')
-			map->error = '1';
+			play->error = '1';
 		else if (file[j + 1] != NULL && countline)
-			trick_room(file, map, j, i);
-		if (map->error != '0')
+			trick_room(file, play, j, i);
+		if (play->error != '0')
 			return (1);
 	}
 	countline++;
 	return (0);
 }
 
-void	erase_whitespace(t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map->map[i])
-	{
-		j = 0;
-		while (map->map[i][j])
-		{
-			if (map->map[i][j] == ' ')
-				map->map[i][j] = '1';
-			j++;
-		}
-		i++;
-	}
-}
-
-char	**get_file(t_map *map, char *argv)
+char	**get_file(t_play *play, char *argv)
 {
 	int		i;
 	int		fd;
@@ -104,7 +85,7 @@ char	**get_file(t_map *map, char *argv)
 	len = get_file_size(argv);
 	if (!len)
 	{
-		map->error = 'N';
+		play->error = 'N';
 		return (NULL);
 	}
 	file = malloc((sizeof(char *) * len) + 1);

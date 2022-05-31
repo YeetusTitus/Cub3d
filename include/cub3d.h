@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/31 14:28:16 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:49:31 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ typedef struct s_play {
 	int		keyhook;
 	int		x;
 	char	**map;
-	int		***texture;
 
+	t_color	*texture;
 	char	error;
 	int		lenght;
 	int		height;
+	int		nbplayer;
 
 
 
@@ -108,20 +109,20 @@ typedef struct s_play {
 
 
 //display_2d
-void	display_minimap(t_map *map, int x, int y);
-void	draw_player(t_map *map, int x, int y, int color);
-void	draw_map(t_map *map);
+void	display_minimap(t_play *play, int x, int y);
+void	draw_player(t_play *play, int x, int y, int color);
+void	draw_map(t_play *play);
 
 //event
-int		move_on_win(int keycode, t_map *map);
-void	change_play(t_map *map, int kc);
-int		wclose(t_map *map);
-int		red_cross(int keycode, int x, int y, t_map *map);
-int		display_mmap(int keycode, t_map *map);
+int		move_on_win(int keycode, t_play *play);
+void	change_play(t_play *play, int kc);
+int		wclose(t_play *play);
+int		red_cross(int keycode, int x, int y, t_play *play);
+int		display_mmap(int keycode, t_play *play);
 
 //error
-int		fileverif(t_map *map, char *str, int fd, char c);
-int		ft_puterror(int argc, t_map *map);
+int		fileverif(t_play *play, char *str, int fd, char c);
+int		ft_puterror(int argc, t_play *play);
 
 //gnl
 char	*get_next_line(int fd);
@@ -132,29 +133,30 @@ int		checkchr(const char *str, char ch);
 int		space_line(char	*str, int lenght);
 int		tablen(char **tabl);
 int		ft_malloc_error(char **tab, int size);
-void	delete_screen(t_map *map);
+void	delete_screen(t_play *play);
 int		is_space(char c);
 
 //utils 2
-void	freedom(t_map *map);
+void	freedom(t_play *play);
 
 //parsing
-int		map_parsing(t_map *map, char **file);
-int		parsing(t_map *map, char **argv);
+int		map_parsing(t_play *play, char **file);
+int		parsing(t_play *play, char **argv);
 int		create_color(int *array, char *parse);
-int		options_switch2(t_map *map, char **parse, int direction[6]);
-int		options_switch(t_map *map, char **parse);
+int		options_switch2(t_play *play, char **parse, int direction[6]);
+int		options_switch(t_play *play, char **parse);
 
 //parsing map
-int		verif_map(char **file, t_map *map, int i);
+int		verif_map(char **file, t_play *play, int i);
 int		get_file_size(char *argv);
-void	get_map(char **file, t_map *map, int i);
-void	save_player_pos(t_map *map, int x, int y);
+void	get_map(char **file, t_play *play, int i);
+void	save_player_pos(t_play *play, int x, int y);
+void	get_dir_x_y(char c, t_play *p);
 
 //parsing_utils
-int		closed_room(char **file, t_map *map, int j);
-void	trick_room(char **f, t_map *map, int j, int i);
+int		closed_room(char **file, t_play *play, int j);
+void	trick_room(char **f, t_play *play, int j, int i);
 int		is_char_ok(char *str);
-char	**get_file(t_map *map, char *argv);
+char	**get_file(t_play *play, char *argv);
 
 #endif

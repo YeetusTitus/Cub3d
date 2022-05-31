@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:12:10 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/30 16:04:39 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:47:52 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	space_line(char	*str, int lenght)
 	return (1);
 }
 
-void	delete_screen(t_map *map)
+void	delete_screen(t_play *play)
 {
-	mlx_destroy_image(map->mlx, map->color.east);
-	mlx_destroy_image(map->mlx, map->color.north);
-	mlx_destroy_image(map->mlx, map->color.west);
-	mlx_destroy_image(map->mlx, map->color.south);
+	mlx_destroy_image(play->mlx, play->texture->east);
+	mlx_destroy_image(play->mlx, play->texture->north);
+	mlx_destroy_image(play->mlx, play->texture->west);
+	mlx_destroy_image(play->mlx, play->texture->south);
 }
 
 int	is_space(char c)
@@ -57,6 +57,3 @@ int	is_space(char c)
 		return (1);
 	return (0);
 }
-// void	freedom(t_map *map)
-// {
-// }

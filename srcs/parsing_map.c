@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:08:43 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/30 17:06:56 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:25:53 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,73 +34,91 @@ int	get_file_size(char *argv)
 	return (size);
 }
 
-int	verif_map(char **file, t_map *map, int i)
+int	verif_map(char **file, t_play *play, int i)
 {
 	int		im;
 
 	while (space_line(file[i], ft_strlen(file[i])))
 		i++;
 	im = i;
-	map->nbplayer = 0;
-	map->lenght = 0;
+	play->nbplayer = 0;
+	play->lenght = 0;
 	while (file[i] != NULL)
 	{
-		if (closed_room(file, map, i))
+		if (closed_room(file, play, i))
 			return (1);
-		if (ft_strlen(file[i]) > map->lenght)
-			map->lenght = ft_strlen(file[i]);
-		map->height++;
+		if (ft_strlen(file[i]) > play->lenght)
+			play->lenght = ft_strlen(file[i]);
+		play->height++;
 		i++;
 	}
-	if (map->nbplayer != 1)
+	if (play->nbplayer != 1)
 	{
-		map->error = 'P';
+		play->error = 'P';
 		return (1);
 	}
-	get_map(file, map, im);
+	get_map(file, play, im);
 	return (0);
 }
 
-void	get_map(char **file, t_map *map, int i)
+void	get_map(char **file, t_play *play, int i)
 {
 	int	j;
 	int	k;
 
 	j = -1;
-	map->map = malloc(sizeof(char *) * (map->height + 1));
+	play->map = malloc(sizeof(char *) * (play->height + 1));
 	while (file[i])
 	{
-		map->map[++j] = (char *)malloc((sizeof(char) * map->lenght) + 1);
+		play->map[++j] = (char *)malloc((sizeof(char) * play->lenght) + 1);
 		k = -1;
-		while (++k < map->lenght)
+		while (++k < play->lenght)
 		{
 			if (k < ft_strlen(file[i]) && file[i][k] != ' ')
-				map->map[j][k] = file[i][k];
+				play->map[j][k] = file[i][k];
 			else
-				map->map[j][k] = '1';
-			save_player_pos(map, j, k);
+				play->map[j][k] = '1';
+			save_player_pos(play, j, k);
 		}
-		map->map[j][k] = 0;
+		play->map[j][k] = 0;
 		i++;
 	}
-	map->map[++j] = NULL;
+	play->map[++j] = NULL;
 }
 
-void	save_player_pos(t_map *map, int x, int y)
+//a changer
+void	save_player_pos(t_play *play, int x, int y)
 {
-	if (map->map[x][y] == 'N' || map->map[x][y] == 'S'
-		|| map->map[x][y] == 'E' || map->map[x][y] == 'W')
+	if (play->map[x][y] == 'N' || play->map[x][y] == 'S'
+		|| play->map[x][y] == 'E' || play->map[x][y] == 'W')
 	{
-		map->play.x = x;
-		map->play.y = y;
-		map->map[x][y] = '0';
-		if (map->map[x][y] == 'E')
-			map->play.degre = 0;
-		if (map->map[x][y] == 'N')
-			map->play.degre = M_PI_2;
-		if (map->map[x][y] == 'W')
-			map->play.degre = M_PI;
-		if (map->map[x][y] == 'S')
-			map->play.degre = 3 * M_PI_2;
+		play->posx = x;
+		play->posy = y;
+		play->map[x][y] = '0';
+		get_dir_x_y(play->map[x][y], play);
+	}
+}
+
+void	get_dir_x_y(char c, t_play *p)
+{
+	if (c == 'N')
+	{
+		p->dirx = 0;
+		p->diry = 1;
+	}
+	if (c == 'S')
+	{
+		p->dirx = 0;
+		p->diry = -1;
+	}
+	if (c == 'E')
+	{
+		p->dirx = 1;
+		p->diry = 0;
+	}
+	if (c == 'W')
+	{
+		p->dirx = -1;
+		p->diry = 0;
 	}
 }

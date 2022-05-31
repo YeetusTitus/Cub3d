@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/31 14:26:15 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 15:58:25 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	main(int argc, char **argv)
 
 	(void)(argv);
 	(void)(argc);
+	play.mlx = mlx_init();
 	if (parsing(&play, argv))
 		return (ft_puterror(argc, &play));
 	// map.play.dx = round(cos(3 * M_PI_2) * 5);
 	// map.play.dy = round(sin(3 * M_PI_2) * 5);
-	play.mlx = mlx_init();
 	// map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
 	// draw_map(&map);
 	// display_minimap(&map, map.play.x, map.play.y);
