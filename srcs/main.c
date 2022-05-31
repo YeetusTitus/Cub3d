@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/30 17:06:01 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:26:15 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
+	t_play	play;
 
 	(void)(argv);
 	(void)(argc);
-	map.play.x = 506;
-	map.play.y = 203;
-	map.play.degre = 3 * M_PI_2;
-	if (parsing(&map, argv))
-		return (ft_puterror(argc, &map));
+	if (parsing(&play, argv))
+		return (ft_puterror(argc, &play));
 	// map.play.dx = round(cos(3 * M_PI_2) * 5);
 	// map.play.dy = round(sin(3 * M_PI_2) * 5);
-	map.mlx = mlx_init();
+	play.mlx = mlx_init();
 	// map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
 	// draw_map(&map);
 	// display_minimap(&map, map.play.x, map.play.y);
@@ -35,8 +32,8 @@ int	main(int argc, char **argv)
 	// mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
 	// mlx_loop(map.mlx);
 	printf("Parsing Bon !\n");
-	delete_screen(&map);
-	freedom(&map);
+	delete_screen(&play);
+	freedom(&play);
 	// system("leaks cub3D");
 	return (0);
 }

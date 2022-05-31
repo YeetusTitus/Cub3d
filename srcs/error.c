@@ -6,32 +6,32 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:22:11 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/27 21:51:45 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:27:10 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	ft_puterror(int argc, t_map *map)
+int	ft_puterror(int argc, t_play *play)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (argc != 2)
 		ft_putstr_fd("Put the path of one map on the argument !", 2);
-	else if (map->error != '0')
+	else if (play->error != '0')
 	{
-		if (map->error == '1')
+		if (play->error == '1')
 			ft_putstr_fd("The map is not close !", 2);
-		if (map->error == 'P')
+		if (play->error == 'P')
 			ft_putstr_fd("The number of player is not correct !", 2);
-		if (map->error == 'C')
+		if (play->error == 'C')
 			ft_putstr_fd("Wrong character in a map", 2);
-		if (map->error == 'N')
+		if (play->error == 'N')
 			ft_putstr_fd("No character in the file", 2);
-		if (map->error == 'F')
+		if (play->error == 'F')
 			ft_putstr_fd("Not the good extension", 2);
-		if (map->error == 'I')
+		if (play->error == 'I')
 			ft_putstr_fd("Invalid information(s) in options", 2);
-		if (map->error == 'O')
+		if (play->error == 'O')
 			ft_putstr_fd("Incorrect number of options", 2);
 	}
 	else
@@ -41,7 +41,7 @@ int	ft_puterror(int argc, t_map *map)
 	return (1);
 }
 
-int	fileverif(t_map *map, char *str, int fd, char c)
+int	fileverif(t_play *play, char *str, int fd, char c)
 {
 	int		i;
 
@@ -58,7 +58,7 @@ int	fileverif(t_map *map, char *str, int fd, char c)
 			&& str[i + 3] == 'm' && str[i + 4] == '\0')
 			return (0);
 	}
-	map->error = 'F';
+	play->error = 'F';
 	close(fd);
 	return (1);
 }

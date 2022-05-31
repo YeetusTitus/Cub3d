@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/30 17:04:26 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:28:16 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,58 @@ typedef struct s_map {
 	t_player		play;
 	t_color			color;
 }				t_map;
+
+typedef struct s_play {
+	double	posx; // start pos x
+	double	posy; // start pos y
+	double	dirx; //initial direction vecteurs
+	double	diry; //initial direction vecteurs
+	double	planex;
+	double	planey;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		color;
+	double	frametime;
+	double	movespeed;
+	double	rotspeed;
+	double	olddirx;
+	double	oldplanx;
+	int		keyhook;
+	int		x;
+	char	**map;
+	int		***texture;
+
+	char	error;
+	int		lenght;
+	int		height;
+
+
+
+
+	void	*image_pointer;
+	void	*mlx;
+	void	*win;
+	void	*my_image_data;
+}	t_play;
+
+
+
+
 
 //display_2d
 void	display_minimap(t_map *map, int x, int y);
