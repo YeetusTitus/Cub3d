@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/03 22:31:09 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:45:18 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,13 @@ int	show_mouse(void)
 		show = 1;
 	}
 	return (0);
+}
+
+void	ft_pixel_put(t_disp *display, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = display->addr
+		+ (y * display->line_length + x * (display->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

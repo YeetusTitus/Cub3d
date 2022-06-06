@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 19:56:28 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/03 21:18:25 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:36:44 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	freedom(t_play *play)
 {
 	free(play->texture);
+	if (play->disp.img)
+		free(play->disp.img);
 	if (play->map != NULL)
 		ft_malloc_error(play->map, tablen(play->map));
 }

@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:43:48 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/03 23:14:26 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/06 19:18:03 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	readkeys(int keys, t_play *p)
 {
-	printf("dir x = %f  | dir y = %f\n", p->dirx, p->diry);
-	printf("key = %d\n", keys);
+	// printf("dir x = %f  | dir y = %f\n", p->dirx, p->diry);
+	// printf("key = %d\n", keys);
 	if (keys == 257)
 		show_mouse();
 	if (keys == 53)

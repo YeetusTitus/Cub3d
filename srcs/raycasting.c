@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/03 22:16:23 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/06 19:44:28 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	verline(int x, t_play *p)
 
 	i = -1;
 	while (++i < p->drawstart)
-		mlx_pixel_put(p->mlx, p->win, x, i, p->texture->ceil);
+		ft_pixel_put(&p->disp, x, i, p->texture->ceil);
 	while (p->drawstart < p->drawend)
-		mlx_pixel_put(p->mlx, p->win, x, p->drawstart++, p->color);
+		ft_pixel_put(&p->disp, x, p->drawstart++, p->color);
 	i = p->drawend;
 	while (i < 200 && p->drawend < 198)
-		mlx_pixel_put(p->mlx, p->win, x, i++, p->texture->floor);
+		ft_pixel_put(&p->disp, x, i++, p->texture->floor);
 }
 
 void	raycast_loop(t_play *p, int w, int h)
@@ -61,6 +61,7 @@ void	raycast_loop(t_play *p, int w, int h)
 			p->color = 0x00FF0000 / 6;
 		verline(x, p);
 	}
+	mlx_put_image_to_window(p->mlx, p->win, p->disp.img, 0, 0);
 	p->movespeed = 0.2;
 	p->rotspeed = 0.1;
 	mlx_hook(p->win, 17, 1L << 2, red_cross, &p);

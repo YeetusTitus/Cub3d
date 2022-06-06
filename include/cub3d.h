@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/03 22:46:11 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:43:45 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
+typedef struct s_disp {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_disp;
 typedef struct s_player {
 	int		x;
 	int		y;
@@ -95,6 +102,7 @@ typedef struct s_play {
 	int		nbplayer;
 	int		xmouse;
 
+	t_disp	disp;
 
 
 	void	*image_pointer;
@@ -192,5 +200,6 @@ int		move_right(t_play *p);
 int		mousing(int x, int y, t_play *play);
 
 //event2
-int	show_mouse(void);
+int		show_mouse(void);
+void	ft_pixel_put(t_disp *display, int x, int y, int color);
 #endif
