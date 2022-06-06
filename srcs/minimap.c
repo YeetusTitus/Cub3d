@@ -6,12 +6,8 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:22:02 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/24 16:05:52 by jforner          ###   ########.fr       */
+/*   Updated: 2022/05/18 17:13:31 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-void	createminimap(t_map *map)
-{
-}

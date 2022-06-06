@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/31 15:57:36 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/03 21:12:38 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	param_parsing(t_play *play, char **file, int *i)
 	{
 		if (!space_line(file[*i], ft_strlen(file[*i])))
 		{
-			parse = ft_split(file[*i], ' ');
+			parse = split_v2(file[*i]);
 			if (tablen(parse) != 2 || options_switch(play, parse))
 			{
 				play->error = 'I';

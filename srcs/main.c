@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/31 15:58:25 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/03 22:54:29 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,24 @@
 
 int	main(int argc, char **argv)
 {
-	t_play	play;
+	// t_data	d;
+	t_play	p;
+	// t_play	c;
 
-	(void)(argv);
-	(void)(argc);
-	play.mlx = mlx_init();
-	if (parsing(&play, argv))
-		return (ft_puterror(argc, &play));
-	// map.play.dx = round(cos(3 * M_PI_2) * 5);
-	// map.play.dy = round(sin(3 * M_PI_2) * 5);
-	// map.win = mlx_new_window(map.mlx, 1024, 512, "Cub3d");
-	// draw_map(&map);
-	// display_minimap(&map, map.play.x, map.play.y);
-	// // mlx_key_hook(map.win, move_on_win, &map);
-	// mlx_hook(map.win, 2, 1L << 0, move_on_win, &map);
-	// mlx_key_hook(map.win, display_mmap, &map);
-	// mlx_hook(map.win, 17, 1L << 2, red_cross, &map);
-	// mlx_loop(map.mlx);
-	printf("Parsing Bon !\n");
-	delete_screen(&play);
-	freedom(&play);
-	// system("leaks cub3D");
+	p.mlx = mlx_init();
+	if (parsing(&p, argv))
+		return (ft_puterror(argc, &p));
+
+	// d = get_map(argv);
+	//	check_map(d.map);
+	// d = save_player_pos(d);
+	// d = erase_whitespace(d);
+	// d = get_same_size_all_lines(d);
+	// c = init_t_play(&d);
+	// p = &c;
+	p.xmouse = -342;
+	p.win = mlx_new_window(p.mlx, 400, 200, "Cub3d");
+	raycast_loop(&p, 400, 200);
+	mlx_loop(p.mlx);
 	return (0);
 }

@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 17:08:43 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/31 15:25:53 by jforner          ###   ########.fr       */
+/*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
+/*   Updated: 2022/06/03 20:15:43 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "cub3d.h"
 
 int	get_file_size(char *argv)
 {
@@ -23,13 +23,12 @@ int	get_file_size(char *argv)
 	if (fd < 0)
 		return (0);
 	str = get_next_line(fd);
-	while (str[0])
+	while (str != NULL && str[0])
 	{
 		size++;
 		free(str);
 		str = get_next_line(fd);
 	}
-	free(str);
 	close(fd);
 	return (size);
 }
@@ -92,10 +91,11 @@ void	save_player_pos(t_play *play, int x, int y)
 	if (play->map[x][y] == 'N' || play->map[x][y] == 'S'
 		|| play->map[x][y] == 'E' || play->map[x][y] == 'W')
 	{
-		play->posx = x;
-		play->posy = y;
-		play->map[x][y] = '0';
+		play->posx = y + 0.5;
+		play->posy = x + 0.5;
 		get_dir_x_y(play->map[x][y], play);
+		get_plane(play->map[x][y], play);
+		play->map[x][y] = '0';
 	}
 }
 

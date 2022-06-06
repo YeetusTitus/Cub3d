@@ -1,11 +1,11 @@
-SRCS = main.c parsing.c error.c utils1.c gnl.c parsing_map.c parsing_utils.c \
-utils2.c
+SRCS = main.c parsing_map.c gnl.c gnl_utils.c parsing.c parsing_utils.c raycasting.c mouve.c \
+utils1.c utils2.c error.c event.c event2.c
 
 DIRECTORYS = srcs/
 
 SRCSD =	$(addprefix ${DIRECTORYS}, $(SRCS))
 
-EFLAGS = -Wall -Wextra -Werror -g
+EFLAGS = -Wall -Wextra -Werror
 
 OBJS =	${SRCSD:.c=.o}
 
@@ -18,19 +18,24 @@ NAME   = cub3D
 %.o: %.c
 	gcc ${OFLAGS} ${EFLAGS}  ${INCLUD} -o $@ $<
 
-INCLUD = -I./include
+INCLUD = -I./include -I./mlx
 
 LIBFT = -Llibft -lft
 
+MLXL = -Lmlx -lmlx
+
 ${NAME}: ${OBJS}
 	(cd libft && make)
-	gcc  -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT}
-			
+	(cd mlx && make)
+	gcc -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT} ${MLXL}
+
+
 all:	${NAME}
 
 clean:
 		rm  -f ${OBJS}
 		(cd libft && make clean)
+		(cd mlx && make clean)
 
 fclean:	clean
 		rm  -f ${NAME}

@@ -42,6 +42,7 @@ int				ft_isascii(int str);
 unsigned int	ft_strlcat(char *dest, const char *src, size_t size);
 unsigned int	ft_strlcpy(char *dest, const char *src, size_t size);
 char			*ft_strnstr(const char *str, const char *to_find, size_t size);
+char			*ft_strndup(char *src, int n);
 char			*ft_strdup(char *src);
 char			*ft_strchr(const char *str, int ch);
 char			*ft_strrchr(const char *str, int ch);

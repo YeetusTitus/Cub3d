@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 17:49:34 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/31 15:45:52 by jforner          ###   ########.fr       */
+/*   Created: 2022/05/25 18:46:36 by ktroude           #+#    #+#             */
+/*   Updated: 2022/06/03 20:00:23 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cub3d.h>
+#include "cub3d.h"
 
 int	is_char_ok(char *str)
 {
@@ -98,4 +98,28 @@ char	**get_file(t_play *play, char *argv)
 	close(fd);
 	file[i] = NULL;
 	return (file);
+}
+
+void	get_plane(char c, t_play *play)
+{
+	if (c == 'W')
+	{
+		play->planex = 0;
+		play->planey = 0.66;
+	}
+	if (c == 'N')
+	{
+		play->planex = 0.66;
+		play->planey = 0;
+	}
+	if (c == 'E')
+	{
+		play->planex = 0;
+		play->planey = -0.66;
+	}
+	if (c == 'S')
+	{
+		play->planex = -0.66;
+		play->planey = 0;
+	}
 }
