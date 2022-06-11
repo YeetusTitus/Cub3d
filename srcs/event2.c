@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   event2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/05/18 13:52:24 by jforner          ###   ########.fr       */
+/*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
+/*   Updated: 2022/06/06 17:45:18 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-//M_PI == pi
-// M_PI_2 == pi / 2
-
-int	map_parsing(t_map *map, int fd)
+int	show_mouse(void)
 {
+	static int	show = 1;
+
+	if (show)
+	{
+		mlx_mouse_hide();
+		show = 0;
+	}
+	else
+	{
+		mlx_mouse_show();
+		show = 1;
+	}
 	return (0);
 }
 
-int	parsing(t_map *map, char **argv)
+void	ft_pixel_put(t_disp *display, int x, int y, int color)
 {
-	int		fd;
-	char	*line;
+	char	*dst;
 
-	map->error == '0';
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0 || !fileverif(map, argv[1], fd))
-		return (1);
-	line = get_next_line(fd);
-	if (line == NULL)
-	{
-		map->error = 'N';
-		return (1);
-	}
-	if (map_parsing(map, fd))
-		return (1);
-	return (0);
+	dst = display->addr
+		+ (y * display->line_length + x * (display->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

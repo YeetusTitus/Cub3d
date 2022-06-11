@@ -3,115 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktroude <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
-/*   Updated: 2022/05/25 18:46:27 by ktroude          ###   ########.fr       */
+/*   Updated: 2022/06/03 20:15:43 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_map_size(char **argv)
+int	get_file_size(char *argv)
 {
 	int		size;
 	int		fd;
 	char	*str;
 
 	size = 0;
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	str = get_next_line(fd);
-	while (is_char_ok(str) == 1)
-	{
-		free(str);
-		str = get_next_line(fd);
-	}
-	while (is_char_ok(str) == 0)
+	while (str != NULL && str[0])
 	{
 		size++;
 		free(str);
 		str = get_next_line(fd);
 	}
-	free(str);
+	close(fd);
 	return (size);
 }
 
-t_data	get_map(char **argv)
+int	verif_map(char **file, t_play *play, int i)
 {
-	t_data	d;
-	char	*str;
-	int		fd;
-	int		i;
+	int		im;
 
-	i = 0;
-	d.map = malloc(sizeof(char *) * (get_map_size(argv) + 1));
-	fd = open(argv[1], O_RDONLY);
-	str = get_next_line(fd);
-	while (is_char_ok(str) == 1)
+	while (space_line(file[i], ft_strlen(file[i])))
+		i++;
+	im = i;
+	play->nbplayer = 0;
+	play->lenght = 0;
+	while (file[i] != NULL)
 	{
-		free(str);
-		str = get_next_line(fd);
+		if (closed_room(file, play, i))
+			return (1);
+		if (ft_strlen(file[i]) > play->lenght)
+			play->lenght = ft_strlen(file[i]);
+		play->height++;
+		i++;
 	}
-	while (is_char_ok(str) == 0)
+	if (play->nbplayer != 1)
 	{
-		d.map[i++] = ft_strndup(str, ft_strlen(str) - 1);
-		free(str);
-		str = get_next_line(fd);
+		play->error = 'P';
+		return (1);
 	}
-	d.map[i] = NULL;
-	free(str);
-	return (d);
+	get_map(file, play, im);
+	return (0);
 }
 
-t_data	save_player_pos(t_data d)
+void	get_map(char **file, t_play *play, int i)
 {
-	int	i;
 	int	j;
+	int	k;
 
-	i = 0;
-	j = 0;
-	while (d.map[i])
+	j = -1;
+	play->map = malloc(sizeof(char *) * (play->height + 1));
+	while (file[i])
 	{
-		while (d.map[i][j])
+		play->map[++j] = (char *)malloc((sizeof(char) * play->lenght) + 1);
+		k = -1;
+		while (++k < play->lenght)
 		{
-			if (d.map[i][j] == 'N' || d.map[i][j] == 'S'
-				|| d.map[i][j] == 'E' || d.map[i][j] == 'W')
-			{
-				d.pos[0] = i;
-				d.pos[1] = j;
-				d.orientation = d.map[i][j];
-				d.map[i][j] = '0';
-			}
-			j++;
+			if (k < ft_strlen(file[i]) && file[i][k] != ' ')
+				play->map[j][k] = file[i][k];
+			else
+				play->map[j][k] = '1';
+			save_player_pos(play, j, k);
 		}
+		play->map[j][k] = 0;
 		i++;
-		j = 0;
 	}
-	return (d);
+	play->map[++j] = NULL;
 }
 
-t_data	get_same_size_all_lines(t_data d)
+//a changer
+void	save_player_pos(t_play *play, int x, int y)
 {
-	int	i;
-	int	size;
+	if (play->map[x][y] == 'N' || play->map[x][y] == 'S'
+		|| play->map[x][y] == 'E' || play->map[x][y] == 'W')
+	{
+		play->posx = x;
+		play->posy = y;
+		get_dir_x_y(play->map[x][y], play);
+		get_plane(play->map[x][y], play);
+		play->map[x][y] = '0';
+	}
+}
 
-	i = 0;
-	size = 0;
-	while (d.map[i])
+void	get_dir_x_y(char c, t_play *p)
+{
+	if (c == 'N')
 	{
-		if (ft_strlen_v2(d.map[i]) > size)
-			size = ft_strlen_v2(d.map[i]);
-		i++;
+		p->dirx = 0;
+		p->diry = 1;
 	}
-	i = 0;
-	while (d.map[i])
+	if (c == 'S')
 	{
-		if (ft_strlen_v2(d.map[i]) < size)
-			d.map[i] = ft_strjoin_v2(d.map[i], "1");
-		if (ft_strlen_v2(d.map[i]) == size)
-			i++;
+		p->dirx = 0;
+		p->diry = -1;
 	}
-	return (d);
+	if (c == 'E')
+	{
+		p->dirx = 1;
+		p->diry = 0;
+	}
+	if (c == 'W')
+	{
+		p->dirx = -1;
+		p->diry = 0;
+	}
 }
