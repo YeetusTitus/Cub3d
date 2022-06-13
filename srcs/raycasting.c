@@ -30,7 +30,7 @@ void	raycast_loop(t_play *p, int w, int h)
 		p = perform_DDA(p);
 		p = wall_size(p, h);
 		p = texture_calcul(p, texwidth, texheight, h);
-		p = write_color_in_buffer(p, texheight, texwidth, x);
+		p = write_color_in_buffer(p, texheight, texwidth, x, h);
 		p = texture_floor_n_ceil(p, h, x, texheight, texwidth);
 	}
 	p = display_n_free_buffer(p, h, w);
@@ -173,7 +173,7 @@ t_play	*texture_calcul(t_play *p, int texwidth, int texheight, int h)
 	return (p);
 }
 
-t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x)
+t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x, int h)
 {
 	int		y;
 	char	*dst;
@@ -210,7 +210,7 @@ t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x)
 		}
 		p->buffer[y][x] = p->color;
 	}
-	while (y++ < 200)
+	while (y++ < h)
 		p->buffer[y][x] = 121;
 	return (p);
 }

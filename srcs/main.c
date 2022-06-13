@@ -28,10 +28,10 @@ int	main(int argc, char **argv)
 	if (parsing(&p, argv))
 		return (ft_puterror(argc, &p));
 	p.xmouse = -342;
-	p.win = mlx_new_window(p.mlx, 400, 200, "Cub3d");
-	p.disp.img = mlx_new_image(p.mlx, 400, 200);
+	p.win = mlx_new_window(p.mlx, screenwidth , screenheight, "Cub3d");
+	p.disp.img = mlx_new_image(p.mlx, screenwidth , screenheight);
 	p.disp.addr = mlx_get_data_addr(p.disp.img, &p.disp.bits_per_pixel, &p.disp.line_length, &p.disp.endian);
-	raycast_loop(&p, 400, 200);
+	raycast_loop(&p, screenwidth , screenheight);
 	mlx_loop(p.mlx);
 	return (0);
 }

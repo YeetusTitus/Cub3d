@@ -25,8 +25,8 @@
 # include "../mlx/mlx.h"
 
 
-#define screenwidth 400
-#define screenheight 200
+#define screenwidth 840
+#define screenheight 420
 //#define texwidth 64
 //#define texheight 64
 
@@ -139,7 +139,7 @@ typedef struct s_play {
 	double	step;
 	double	texpos;
 	int		texy;
-	int		buffer[200][400];
+	int		buffer[screenheight][screenwidth];
 	
 	t_disp	text[6];
 	
@@ -261,7 +261,7 @@ t_play	*step_n_sidedist(t_play *p);
 t_play	*perform_DDA(t_play *p);
 t_play	*wall_size(t_play *p, int h);
 t_play	*texture_calcul(t_play *p, int texwidth, int texheight, int h);
-t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x);
+t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x, int h);
 t_play	*display_n_free_buffer(t_play *p, int h, int w);
 t_play  *texture_floor_n_ceil(t_play *p, int h, int x, int texheight, int texwidth);
 
