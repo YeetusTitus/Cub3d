@@ -105,7 +105,35 @@ typedef struct s_play {
 	int		keyhook;
 	int		x;
 	char	**map;
-
+///// variable texture sol / plafond
+    float   raydirx0;
+    float   raydiry0;
+    float   raydirx1;
+    float   raydiry1;
+    int     p;
+    float   posz;
+    float   rowdistance;
+    float   floorstepx;
+    float   floorstepy;
+    float   floorx;
+    float   floory;
+    int     cellx;
+    int     celly;
+    int     tx;
+    int     ty;
+    int     floortexture;
+    int     ceilingtexture;
+    double  floorxwall;
+    double  floorywall;
+    double  distwall;
+    double  distplayer;
+    double  currentdist;
+    double  weight;
+    double  currentfloorx;
+    double  currentfloory;
+    int     floortexx;
+    int     floortexy;
+/////
 	double	wallx;
 	int		texx;
 	double	step;
@@ -113,7 +141,7 @@ typedef struct s_play {
 	int		texy;
 	int		buffer[200][400];
 	
-	t_disp	text[4];
+	t_disp	text[6];
 	
 	t_color	*texture;
 	char	error;
@@ -235,7 +263,7 @@ t_play	*wall_size(t_play *p, int h);
 t_play	*texture_calcul(t_play *p, int texwidth, int texheight, int h);
 t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x);
 t_play	*display_n_free_buffer(t_play *p, int h, int w);
-
+t_play  *texture_floor_n_ceil(t_play *p, int h, int x, int texheight, int texwidth);
 
 
 
