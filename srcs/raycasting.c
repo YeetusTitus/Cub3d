@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/10 13:54:00 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 14:01:51 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void	raycast_loop(t_play *p, int w, int h)
 		verline(x, p);
 	}
 	mlx_put_image_to_window(p->mlx, p->win, p->disp.img, 0, 0);
-	mmap_print(p);
-	mlx_put_image_to_window(p->mlx, p->win, p->mmap.img, 20, 20);
+	if (!(p->showmap))
+	{
+		mmap_print(p, 0);
+		mlx_put_image_to_window(p->mlx, p->win, p->mmap.img, 20, 20);
+	}
 	p->movespeed = 0.2;
 	p->rotspeed = 0.1;
 }

@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/10 15:20:07 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 13:55:19 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	main(int argc, char **argv)
 	// c = init_t_play(&d);
 	// p = &c;
 	p.mouse = 1;
+	p.showmap = 0;
 	p.win = mlx_new_window(p.mlx, 400, 200, "Cub3d");
 	p.disp.img = mlx_new_image(p.mlx, 400, 200);
-	p.mmap.img = mlx_new_image(p.mlx, 49, 49);
+	p.mmap.img = mlx_new_image(p.mlx, 50, 50);
 	p.disp.addr = mlx_get_data_addr(p.disp.img, &p.disp.bits_per_pixel,
 			&p.disp.line_length, &p.disp.endian);
 	p.mmap.addr = mlx_get_data_addr(p.mmap.img, &p.mmap.bits_per_pixel,

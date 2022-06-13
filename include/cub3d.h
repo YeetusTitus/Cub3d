@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/10 15:18:42 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 14:56:34 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_play {
 	int		height;
 	int		nbplayer;
 	int		mouse;
+	int		showmap;
 
 	t_disp	disp;
 	t_disp	mmap;
@@ -121,8 +122,9 @@ void	display_minimap(t_map *map, int x, int y);
 void	draw_player(t_map *map, int x, int y, int color);
 
 //minimap
-void	mmap_print(t_play *p);
+void	mmap_print(t_play *p, int show);
 void	mmap_color(t_play *p, int i, int j, int coord[2]);
+int		get_data_color(int x, int y, t_disp disp);
 
 //error
 int		fileverif(t_play *play, char *str, int fd, char c);
@@ -205,4 +207,5 @@ int		mousing(int x, int y, t_play *play);
 //event2
 int		show_mouse(t_play *play);
 void	ft_pixel_put(t_disp *display, int x, int y, int color);
+int		show_mmmap(t_play *play);
 #endif
