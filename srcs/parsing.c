@@ -41,13 +41,13 @@ int	options_switch2(t_play *play, char **parse, int direction[6])
 	if (test == NULL)
 		return (1);
 	if (!ft_strncmp(parse[0], "WE", ft_strlen(parse[0])) && direction[2]--)
-		play->texture->west = test;
+		play->text[2].img = test;
 	else if (!ft_strncmp(parse[0], "NO", ft_strlen(parse[0])) && direction[3]--)
-		play->texture->north = test;
+		play->text[1].img = test;
 	else if (!ft_strncmp(parse[0], "EA", ft_strlen(parse[0])) && direction[0]--)
-		play->texture->east = test;
+		play->text[3].img = test;
 	else if (!ft_strncmp(parse[0], "SO", ft_strlen(parse[0])) && direction[1]--)
-		play->texture->south = test;
+		play->text[0].img = test;
 	else
 		return (1);
 	return (0);
