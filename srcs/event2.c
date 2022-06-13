@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/13 14:00:51 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:16:27 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	show_mmmap(t_play *play)
 	else
 		play->showmap = 1;
 	mmap_print(play, play->showmap);
-	mlx_put_image_to_window(play->mlx, play->win, play->mmap.img, 20, 20);
+	mlx_put_image_to_window(play->mlx, play->win, play->mmap.img,
+		SCREENWIDTH / 20, SCREENHEIGHT / 10);
 	return (0);
 }
 

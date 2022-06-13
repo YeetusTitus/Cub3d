@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:22:02 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/13 16:38:11 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:18:34 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	mmap_print(t_play *p, int show)
 			mmap_color(p, i, j, coord);
 			if (show)
 				ft_pixel_put(&p->mmap, i, j,
-					(get_data_color(20 + i, 20 + j, p->disp)));
+					(get_data_color(SCREENWIDTH / 20 + i,
+							SCREENHEIGHT / 10 + j, p->disp)));
 		}
 	}
 }
@@ -53,6 +54,7 @@ void	mmap_color(t_play *p, int i, int j, int coord[2])
 int	get_data_color(int x, int y, t_disp disp)
 {
 	char	*dst;
+
 	dst = disp.addr + (y * disp.line_length + x * (disp.bits_per_pixel / 8));
 	return (*(int *)dst);
 }

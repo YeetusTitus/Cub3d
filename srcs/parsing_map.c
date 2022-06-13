@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/10 13:37:01 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 18:11:26 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	save_player_pos(t_play *play, int x, int y)
 		play->posy = x + 0.5;
 		get_dir_x_y(play->map[x][y], play);
 		get_plane(play->map[x][y], play);
+		play->movespeed = 0.2;
+		play->rotspeed = 0.1;
 		play->map[x][y] = '0';
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:43:48 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/13 16:59:07 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:04:56 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	readkeys(int keys, t_play *p)
 {
-	printf("key = %d\n", keys);
 	if (keys == 257)
 		show_mouse(p);
 	if (keys == 46)
@@ -43,7 +42,7 @@ int	move_up(t_play *p)
 		p->posy += p->diry * p->movespeed;
 	if (p->map[(int)(p->posy)][(int)(p->posx + p->dirx * p->movespeed)] == '0')
 		p->posx += p->dirx * p->movespeed;
-	raycast_loop(p, 400, 200);
+	raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	return (0);
 }
 
@@ -54,7 +53,7 @@ int	move_down(t_play *p)
 		p->posy -= p->diry * p->movespeed;
 	if (p->map[(int)(p->posy)][(int)(p->posx - p->dirx * p->movespeed)] == '0')
 		p->posx -= p->dirx * p->movespeed;
-	raycast_loop(p, 400, 200);
+	raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	return (0);
 }
 
@@ -67,7 +66,7 @@ int	rotate_left(t_play *p)
 	p->oldplanx = p->planex;
 	p->planex = p->planex * cos(-p->rotspeed) - p->planey * sin(-p->rotspeed);
 	p->planey = p->oldplanx * sin(-p->rotspeed) + p->planey * cos(-p->rotspeed);
-	raycast_loop(p, 400, 200);
+	raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	return (0);
 }
 
@@ -80,6 +79,6 @@ int	rotate_right(t_play *p)
 	p->oldplanx = p->planex;
 	p->planex = p->planex * cos(p->rotspeed) - p->planey * sin(p->rotspeed);
 	p->planey = p->oldplanx * sin(p->rotspeed) + p->planey * cos(p->rotspeed);
-	raycast_loop(p, 400, 200);
+	raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	return (0);
 }
