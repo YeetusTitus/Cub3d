@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/06 18:36:08 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 15:20:07 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,19 @@ int	main(int argc, char **argv)
 	// d = get_same_size_all_lines(d);
 	// c = init_t_play(&d);
 	// p = &c;
-	p.xmouse = -342;
+	p.mouse = 1;
 	p.win = mlx_new_window(p.mlx, 400, 200, "Cub3d");
 	p.disp.img = mlx_new_image(p.mlx, 400, 200);
+	p.mmap.img = mlx_new_image(p.mlx, 49, 49);
 	p.disp.addr = mlx_get_data_addr(p.disp.img, &p.disp.bits_per_pixel,
 			&p.disp.line_length, &p.disp.endian);
+	p.mmap.addr = mlx_get_data_addr(p.mmap.img, &p.mmap.bits_per_pixel,
+			&p.mmap.line_length, &p.mmap.endian);
 	raycast_loop(&p, 400, 200);
+	mlx_mouse_move(p.win, 200, 100);
+	mlx_hook(p.win, 17, 1L << 2, red_cross, &p);
+	mlx_hook(p.win, 2, 1L << 0, readkeys, &p);
+	mlx_hook(p.win, 6, 1L << 6, mousing, &p);
 	mlx_loop(p.mlx);
 	return (0);
 }

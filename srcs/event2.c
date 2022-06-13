@@ -6,25 +6,23 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/06 17:45:18 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 15:17:44 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	show_mouse(void)
+int	show_mouse(t_play *play)
 {
-	static int	show = 1;
-
-	if (show)
+	if (play->mouse)
 	{
 		mlx_mouse_hide();
-		show = 0;
+		play->mouse = 0;
 	}
 	else
 	{
 		mlx_mouse_show();
-		show = 1;
+		play->mouse = 1;
 	}
 	return (0);
 }

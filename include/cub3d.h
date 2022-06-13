@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/06 18:43:45 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 15:18:42 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ typedef struct s_play {
 	double	olddirx;
 	double	oldplanx;
 	int		keyhook;
-	int		x;
 	char	**map;
 
 	t_color	*texture;
@@ -100,10 +99,10 @@ typedef struct s_play {
 	int		lenght;
 	int		height;
 	int		nbplayer;
-	int		xmouse;
+	int		mouse;
 
 	t_disp	disp;
-
+	t_disp	mmap;
 
 	void	*image_pointer;
 	void	*mlx;
@@ -120,6 +119,10 @@ typedef struct s_data {
 //display_2d
 void	display_minimap(t_map *map, int x, int y);
 void	draw_player(t_map *map, int x, int y, int color);
+
+//minimap
+void	mmap_print(t_play *p);
+void	mmap_color(t_play *p, int i, int j, int coord[2]);
 
 //error
 int		fileverif(t_play *play, char *str, int fd, char c);
@@ -200,6 +203,6 @@ int		move_right(t_play *p);
 int		mousing(int x, int y, t_play *play);
 
 //event2
-int		show_mouse(void);
+int		show_mouse(t_play *play);
 void	ft_pixel_put(t_disp *display, int x, int y, int color);
 #endif

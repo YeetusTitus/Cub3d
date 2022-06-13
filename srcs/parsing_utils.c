@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:46:36 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/03 20:00:23 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:41:34 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	trick_room(char **f, t_play *play, int j, int i)
 		play->error = '1';
 	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
 		|| f[j][i] == 'W' || f[j][i] == 'S')
-			&& (i >= ft_strlen(f[j + 1]) || f[j +1][i] == ' '))
+			&& (i > ft_strlen(f[j + 1]) || f[j + 1][i] == ' '))
 		play->error = '1';
 }
 

@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/03 20:15:43 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:37:01 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	verif_map(char **file, t_play *play, int i)
 		i++;
 	im = i;
 	play->nbplayer = 0;
+	play->height = 0;
 	play->lenght = 0;
 	while (file[i] != NULL)
 	{
@@ -66,7 +67,7 @@ void	get_map(char **file, t_play *play, int i)
 	int	k;
 
 	j = -1;
-	play->map = malloc(sizeof(char *) * (play->height + 1));
+	play->map = (char **)malloc(sizeof(char *) * (play->height + 1));
 	while (file[i])
 	{
 		play->map[++j] = (char *)malloc((sizeof(char) * play->lenght) + 1);
@@ -85,7 +86,6 @@ void	get_map(char **file, t_play *play, int i)
 	play->map[++j] = NULL;
 }
 
-//a changer
 void	save_player_pos(t_play *play, int x, int y)
 {
 	if (play->map[x][y] == 'N' || play->map[x][y] == 'S'

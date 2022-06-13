@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 21:18:59 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/06 19:30:20 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 17:05:47 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,20 @@ int	move_right(t_play *p)
 
 int	mousing(int x, int y, t_play *play)
 {
-	static int	min = 0;
-	static int	max = 0;
-
 	(void)(y);
-	if (0.1 * (abs(play->xmouse - x) / 5) >= 1.5)
-		play->rotspeed = 1.4;
-	else if (0.1 * (abs(play->xmouse - x) / 5) < 0.02)
-		play->rotspeed = 0.02;
-	else
-		play->rotspeed = 0.1 * (abs(play->xmouse - x) / 5);
-	if ((play->xmouse != -342 && x < play->xmouse)
-		|| (play->xmouse <= min && x == play->xmouse))
+	if (!play->mouse)
 	{
-		if (min > x)
-			min = x;
-		play->xmouse = x;
-		rotate_right(play);
+		if (0.1 * (abs(200 - x) / 5) >= 1.5)
+			play->rotspeed = 1.4;
+		else if (0.1 * (abs(200 - x) / 5) < 0.02)
+			play->rotspeed = 0.02;
+		else
+			play->rotspeed = 0.1;
+		mlx_mouse_move(play->win, 200, 100);
+		if ((x < 200))
+			rotate_right(play);
+		else if ((x > 200))
+			rotate_left(play);
 	}
-	else if ((play->xmouse != -342 && x > play->xmouse)
-		|| (play->xmouse >= max && x == play->xmouse))
-	{
-		if (max < x)
-			max = x;
-		play->xmouse = x;
-		rotate_left(play);
-	}
-	play->xmouse = x;
 	return (0);
 }

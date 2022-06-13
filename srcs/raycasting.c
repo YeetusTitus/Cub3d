@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/06 19:44:28 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/10 13:54:00 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	raycast_loop(t_play *p, int w, int h)
 {
 	int	x;
 
-	x = 0;
-	while (x++ < w)
+	x = -1;
+	while (++x < w)
 	{
 		p->camerax = 2 * x / (double)(w) - 1;
 		p->raydirx = p->dirx + p->planex * p->camerax;
@@ -62,12 +62,10 @@ void	raycast_loop(t_play *p, int w, int h)
 		verline(x, p);
 	}
 	mlx_put_image_to_window(p->mlx, p->win, p->disp.img, 0, 0);
+	mmap_print(p);
+	mlx_put_image_to_window(p->mlx, p->win, p->mmap.img, 20, 20);
 	p->movespeed = 0.2;
 	p->rotspeed = 0.1;
-	mlx_hook(p->win, 17, 1L << 2, red_cross, &p);
-	mlx_hook(p->win, 2, 1L << 0, readkeys, p);
-	mlx_hook(p->win, 6, 1L << 6, mousing, p);
-	mlx_loop(p->mlx);
 }
 
 t_play	*get_step_n_sidedist_incr(t_play *p)

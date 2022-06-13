@@ -1,11 +1,11 @@
 SRCS = main.c parsing_map.c gnl.c gnl_utils.c parsing.c parsing_utils.c raycasting.c mouve.c \
-utils1.c utils2.c error.c event.c event2.c
+utils1.c utils2.c error.c event.c event2.c minimap.c
 
 DIRECTORYS = srcs/
 
 SRCSD =	$(addprefix ${DIRECTORYS}, $(SRCS))
 
-EFLAGS = -Wall -Wextra -Werror
+EFLAGS = -Wall -Wextra -Werror -ffast-math
 
 OBJS =	${SRCSD:.c=.o}
 
@@ -44,7 +44,6 @@ fclean:	clean
 mlx:	
 	(cd mlx && make)
 	make ${NAME}
-	
 
 mlxclean : 
 	(cd mlx && make clean)
