@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/13 19:49:25 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/15 14:39:59 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# define SCREENWIDTH 840
-# define SCREENHEIGHT 420
+# define SCREENWIDTH 400
+# define SCREENHEIGHT 200
 
 typedef struct s_disp {
-	unsigned int	color;
-	int				tab[64 * 64 + 64];
 	void			*img;
 	char			*addr;
 	int				bits_per_pixel;
@@ -45,19 +43,6 @@ typedef struct s_player {
 	double	degre;
 	int		spe;
 }				t_player;
-
-typedef struct s_map {
-	int				lenght;
-	int				height;
-	char			**minimap;
-	char			**map;
-	char			error;
-	int				fd;
-	void			*mlx;
-	void			*win;
-	t_player		play;
-}				t_map;
-
 typedef struct s_color {
 	void	*north;
 	void	*south;
@@ -66,6 +51,15 @@ typedef struct s_color {
 	int		floor;
 	int		ceil;
 }				t_color;
+
+typedef struct s_keys {
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}				t_keys;
 
 typedef struct s_play {
 	double	posx;
@@ -138,11 +132,13 @@ typedef struct s_play {
 	t_disp	text[6];
 
 	t_color	*texture;
+	t_keys	keys;
 	char	error;
 	int		lenght;
 	int		height;
 	int		nbplayer;
 	int		mouse;
+	int		xmouse;
 	int		showmap;
 
 	t_disp	disp;
@@ -203,23 +199,17 @@ void	get_plane(char c, t_play *play);
 
 // raycasting
 void	raycast_loop(t_play *p, int w, int h);
-t_play	*load_texture(t_play *p);
-void	verline(int x, t_play *p);
-t_play	*init_DDA(t_play *p, int x, int w);
 t_play	*step_n_sidedist(t_play *p);
-t_play	*perform_DDA(t_play *p);
 t_play	*wall_size(t_play *p, int h);
-t_play	*texture_calcul(t_play *p, int texwidth, int texheight, int h);
 t_play	*write_color_in_buffer(t_play *p, int texheight, int texwidth, int x, int h);
 t_play	*display_n_free_buffer(t_play *p, int h, int w);
-t_play  *texture_floor_n_ceil(t_play *p, int h, int x, int texheight, int texwidth);
-int		readkeys(int keys, t_play *play);
 
 // mouvements
 int		move_up(t_play *p);
 int		move_down(t_play *p);
 int		rotate_left(t_play *p);
 int		rotate_right(t_play *p);
+int		readkeys(int keys, t_play *play);
 
 //utils1
 int		ft_malloc_error(char **tab, int size);
@@ -246,4 +236,14 @@ int		mousing(int x, int y, t_play *play);
 int		show_mouse(t_play *play);
 void	ft_pixel_put(t_disp *display, int x, int y, int color);
 int		show_mmmap(t_play *play);
+int		readkeys2(int key, t_play *p);
+int		display_loop(t_play *p);
+
+//texndda
+t_play  *texture_floor_n_ceil(t_play *p, int h, int x, int texheight, int texwidth);
+t_play	*texture_calcul(t_play *p, int texwidth, int texheight, int h);
+t_play	*init_dda(t_play *p, int x, int w);
+t_play	*perform_dda(t_play *p);
+void	load_texture(t_play *p);
+
 #endif

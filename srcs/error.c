@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:22:11 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/07 13:44:19 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/14 13:56:16 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_puterror(int argc, t_play *play)
 		ft_putstr_fd(strerror(errno), 2);
 	ft_putchar_fd('\n', 2);
 	freedom(play);
-	// system("leaks cub3D");
 	return (1);
 }
 
