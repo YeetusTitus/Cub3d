@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 19:56:31 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/02 19:57:41 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/15 17:33:08 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@ int	space_line(char	*str, int lenght)
 			return (0);
 	}
 	return (1);
-}
-
-void	delete_screen(t_play *play)
-{
-	mlx_destroy_image(play->mlx, play->texture->east);
-	mlx_destroy_image(play->mlx, play->texture->north);
-	mlx_destroy_image(play->mlx, play->texture->west);
-	mlx_destroy_image(play->mlx, play->texture->south);
 }
 
 int	is_space(char c)

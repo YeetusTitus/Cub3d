@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 16:22:02 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/15 14:30:04 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/16 15:22:19 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	mmap_print(t_play *p, int show)
 			coord[0] = (int)p->posx + (int)((i / xmap) - 3);
 			coord[1] = (int)p->posy + (int)((j / ymap) - 3);
 			mmap_color(p, i, j, coord);
+			p->color = get_data_color(SCREENWIDTH / 20 + i,
+					SCREENHEIGHT / 10 + j, p->disp);
 			if (show)
-				ft_pixel_put(&p->mmap, i, j,
-					(get_data_color(SCREENWIDTH / 20 + i,
-							SCREENHEIGHT / 10 + j, p->disp)));
+				ft_pixel_put(&p->mmap, i, j, p->color);
 		}
 	}
 }
@@ -43,7 +43,6 @@ void	mmap_color(t_play *p, int i, int j, int coord[2])
 {
 	int	xmap;
 	int	ymap;
-
 
 	xmap = (int)((7 * SCREENWIDTH) / 400);
 	ymap = (int)((7 * SCREENHEIGHT) / 200);
@@ -61,10 +60,24 @@ void	mmap_color(t_play *p, int i, int j, int coord[2])
 	}
 }
 
-int	get_data_color(int x, int y, t_disp disp)
+void	create_hide(t_play *p)
 {
-	char	*dst;
+	int	i;
+	int	j;
+	int	xmap;
+	int	ymap;
 
-	dst = disp.addr + (y * disp.line_length + x * (disp.bits_per_pixel / 8));
-	return (*(int *)dst);
+	xmap = (int)((7 * SCREENWIDTH) / 400);
+	ymap = (int)((7 * SCREENHEIGHT) / 200);
+	p->hide.img = mlx_new_image(p->mlx, (((7 * SCREENWIDTH) / 400) * 7) + 1,
+			(((7 * SCREENHEIGHT) / 200) * 7) + 1);
+	p->hide.addr = mlx_get_data_addr(p->hide.img, &p->hide.bits_per_pixel,
+			&p->hide.line_length, &p->hide.endian);
+	i = -1;
+	while (++i < (xmap * 7) + 1)
+	{
+		j = -1;
+		while (++j < (ymap * 7) + 1)
+			ft_pixel_put(&p->mmap, i, j, 0x0);
+	}
 }

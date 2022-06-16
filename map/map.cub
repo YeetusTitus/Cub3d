@@ -1,8 +1,8 @@
    
-NO content/bedrock.xpm
-SO content/grass.xpm
-WE content/portal.xpm
-EA content/portaloff.xpm
+NO content/colorstone.xpm
+SO content/redbrick.xpm
+WE content/bluestone.xpm
+EA content/purplestone.xpm
 
 C 0,255,255
 F 69,69,69

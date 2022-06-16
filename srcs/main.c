@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:27:27 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/15 14:33:14 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/16 15:23:38 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,8 @@ int	main(int argc, char **argv)
 	p.disp.addr = NULL;
 	if (parsing(&p, argv))
 		return (ft_puterror(argc, &p));
-	p.mouse = 1;
-	p.keys.w = 1;
-	p.keys.s = 1;
-	p.keys.a = 1;
-	p.keys.d = 1;
-	p.keys.right = 1;
-	p.keys.left = 1;
-	p.showmap = 0;
-	p.xmouse = (SCREENWIDTH / 2);
-	p.win = mlx_new_window(p.mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3d");
-	p.disp.img = mlx_new_image(p.mlx, SCREENWIDTH, SCREENHEIGHT);
-	p.mmap.img = mlx_new_image(p.mlx, (((7 * SCREENWIDTH) / 400) * 7) + 1,
-			(((7 * SCREENHEIGHT) / 200) * 7) + 1);
-	p.disp.addr = mlx_get_data_addr(p.disp.img, &p.disp.bits_per_pixel,
-			&p.disp.line_length, &p.disp.endian);
-	p.mmap.addr = mlx_get_data_addr(p.mmap.img, &p.mmap.bits_per_pixel,
-			&p.mmap.line_length, &p.mmap.endian);
+	init_win(&p);
+	create_hide(&p);
 	load_texture(&p);
 	raycast_loop(&p, SCREENWIDTH, SCREENHEIGHT);
 	mlx_mouse_move(p.win, SCREENWIDTH / 2, SCREENHEIGHT / 2);

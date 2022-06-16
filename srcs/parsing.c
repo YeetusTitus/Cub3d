@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/13 18:33:32 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/15 17:35:46 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,23 @@ int	options_switch2(t_play *play, char **parse, int direction[6])
 {
 	int			iw;
 	int			ih;
+	int			i;
 	void		*test;
 
 	test = mlx_xpm_file_to_image(play->mlx, parse[1], &iw, &ih);
-	if (test == NULL)
+	if (test == NULL || iw != TEXWIDTH || iw != TEXHEIGHT)
 		return (1);
 	if (!ft_strncmp(parse[0], "WE", ft_strlen(parse[0])) && direction[2]--)
-		play->text[2].img = test;
+		i = 2;
 	else if (!ft_strncmp(parse[0], "NO", ft_strlen(parse[0])) && direction[3]--)
-		play->text[1].img = test;
+		i = 1;
 	else if (!ft_strncmp(parse[0], "EA", ft_strlen(parse[0])) && direction[0]--)
-		play->text[3].img = test;
+		i = 3;
 	else if (!ft_strncmp(parse[0], "SO", ft_strlen(parse[0])) && direction[1]--)
-		play->text[0].img = test;
+		i = 0;
 	else
 		return (1);
+	play->text[i].img = test;
 	return (0);
 }
 

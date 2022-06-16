@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/15 13:01:03 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/16 15:12:44 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,19 @@ int	show_mouse(t_play *play)
 	return (0);
 }
 
-int	show_mmmap(t_play *play)
+int	show_mmmap(t_play *p)
 {
-	if (play->showmap)
-		play->showmap = 0;
+	if (p->showmap)
+		p->showmap = 0;
 	else
-		play->showmap = 1;
-	mmap_print(play, play->showmap);
-	mlx_put_image_to_window(play->mlx, play->win, play->mmap.img,
+		p->showmap = 1;
+	mmap_print(p, p->showmap);
+	if (p->showmap)
+		mlx_put_image_to_window(p->mlx, p->win, p->hide.img,
+			SCREENWIDTH / 20, SCREENHEIGHT / 10);
+	mlx_put_image_to_window(p->mlx, p->win, p->mmap.img,
 		SCREENWIDTH / 20, SCREENHEIGHT / 10);
 	return (0);
-}
-
-void	ft_pixel_put(t_disp *display, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = display->addr
-		+ (y * display->line_length + x * (display->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 int	readkeys2(int key, t_play *p)
@@ -91,6 +85,7 @@ int	display_loop(t_play *p)
 		rotate_right(p);
 	if (!display)
 	{
+		p->rotspeed = 0.025;
 		p->xmouse = (SCREENWIDTH / 2);
 		raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	}
