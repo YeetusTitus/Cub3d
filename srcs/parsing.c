@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:23:29 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/15 17:35:46 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:21:59 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	options_switch2(t_play *play, char **parse, int direction[6])
 	test = mlx_xpm_file_to_image(play->mlx, parse[1], &iw, &ih);
 	if (test == NULL || iw != TEXWIDTH || iw != TEXHEIGHT)
 		return (1);
-	if (!ft_strncmp(parse[0], "WE", ft_strlen(parse[0])) && direction[2]--)
-		i = 2;
-	else if (!ft_strncmp(parse[0], "NO", ft_strlen(parse[0])) && direction[3]--)
-		i = 1;
-	else if (!ft_strncmp(parse[0], "EA", ft_strlen(parse[0])) && direction[0]--)
+	if (!ft_strncmp(parse[0], "WE", ft_strlen(parse[0])) && direction[3]--)
 		i = 3;
-	else if (!ft_strncmp(parse[0], "SO", ft_strlen(parse[0])) && direction[1]--)
+	else if (!ft_strncmp(parse[0], "NO", ft_strlen(parse[0])) && direction[0]--)
 		i = 0;
+	else if (!ft_strncmp(parse[0], "EA", ft_strlen(parse[0])) && direction[2]--)
+		i = 2;
+	else if (!ft_strncmp(parse[0], "SO", ft_strlen(parse[0])) && direction[1]--)
+		i = 1;
 	else
 		return (1);
 	play->text[i].img = test;

@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/16 16:09:38 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:34:25 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,22 @@ void	wall_size(t_play *p, int h)
 		p->perpwalldist = (p->sidedistx - p->deltadistx);
 	else
 		p->perpwalldist = (p->sidedisty - p->deltadisty);
+	if (p->perpwalldist <= 0)
+		p->perpwalldist = -1;
 	p->lineheight = (int)(h / p->perpwalldist);
 	p->drawstart = -p->lineheight / 2 + h / 2;
 	if (p->drawstart < 0)
 		p->drawstart = 0;
 	p->drawend = p->lineheight / 2 + h / 2;
+	if (p->drawend < 0)
+		p->drawend *= -1;
 	if (p->drawend >= h)
 		p->drawend = h - 1;
 }
 
 void	write_color_in_buffer(t_play *p, int x, int h)
 {
-	int		y;
+	int			y;
 
 	y = 0;
 	while (y < p->drawstart)
