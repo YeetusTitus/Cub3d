@@ -6,14 +6,48 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 22:17:32 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/21 11:44:08 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/16 15:12:44 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
+int	show_mouse(t_play *play)
+{
+	if (play->mouse)
+	{
+		mlx_mouse_hide();
+		play->mouse = 0;
+	}
+	else
+	{
+		mlx_mouse_show();
+		play->mouse = 1;
+	}
+	return (0);
+}
+
+int	show_mmmap(t_play *p)
+{
+	if (p->showmap)
+		p->showmap = 0;
+	else
+		p->showmap = 1;
+	mmap_print(p, p->showmap);
+	if (p->showmap)
+		mlx_put_image_to_window(p->mlx, p->win, p->hide.img,
+			SCREENWIDTH / 20, SCREENHEIGHT / 10);
+	mlx_put_image_to_window(p->mlx, p->win, p->mmap.img,
+		SCREENWIDTH / 20, SCREENHEIGHT / 10);
+	return (0);
+}
+
 int	readkeys2(int key, t_play *p)
 {
+	if (key == 257)
+		show_mouse(p);
+	if (key == 46)
+		show_mmmap(p);
 	if (key == 13)
 		p->keys.w = 1;
 	if (key == 1)
@@ -45,13 +79,14 @@ int	display_loop(t_play *p)
 		move_up(p);
 	if (!p->keys.s)
 		move_down(p);
-	if (!p->keys.left)
+	if (!p->keys.left || p->xmouse > (SCREENWIDTH / 2))
 		rotate_left(p);
-	if (!p->keys.right)
+	if (!p->keys.right || p->xmouse < (SCREENWIDTH / 2))
 		rotate_right(p);
 	if (!display)
 	{
 		p->rotspeed = 0.025;
+		p->xmouse = (SCREENWIDTH / 2);
 		raycast_loop(p, SCREENWIDTH, SCREENHEIGHT);
 	}
 	return (0);

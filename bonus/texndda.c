@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 13:55:49 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/21 11:12:47 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/16 15:37:51 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,31 @@ void	texture_calcul(t_play *p, int h)
 		p->texx = TEXWIDTH - p->texx - 1;
 	p->step = (double)TEXHEIGHT / p->lineheight;
 	p->texpos = (p->drawstart - h / 2 + p->lineheight / 2) * p->step;
+}
+
+void	texture_floor_n_ceil(t_play *p, int h, int x)
+{
+	int	y;
+
+	get_floorwall(p, h, &y);
+	p->distwall = p->perpwalldist;
+	p->distplayer = 0.0;
+	if (p->drawend < 0)
+		p->drawend = h;
+	while (y < h)
+	{
+		p->currentdist = h / (2.0 * y - h);
+		p->weight = (p->currentdist - p->distplayer)
+			/ (p->distwall - p->distplayer);
+		p->currentfloorx = p->weight * p->floorxwall + (1.0 - p->weight)
+			* p->posx;
+		p->currentfloory = p->weight * p->floorywall + (1.0 - p->weight)
+			* p->posy;
+		p->floortexx = (int)(p->currentfloorx * TEXWIDTH) % TEXWIDTH;
+		p->floortexy = (int)(p->currentfloory * TEXHEIGHT) % TEXHEIGHT;
+		p->color = get_data_color(p->floortexx, p->floortexy, p->text[5]);
+		p->buffer[h - (y + 1)][x] = p->color;
+		p->color = get_data_color(p->floortexx, p->floortexy, p->text[4]);
+		p->buffer[y++][x] = p->color;
+	}
 }

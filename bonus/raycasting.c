@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:40:33 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/21 11:13:07 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/20 18:34:25 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ void	raycast_loop(t_play *p, int w, int h)
 		wall_size(p, h);
 		texture_calcul(p, h);
 		write_color_in_buffer(p, x, h);
+		texture_floor_n_ceil(p, h, x);
 	}
 	display_n_free_buffer(p, h, w);
 	mlx_put_image_to_window(p->mlx, p->win, p->disp.img, 0, 0);
+	mmap_print(p, p->showmap);
+	if (!(p->showmap))
+		mlx_put_image_to_window(p->mlx, p->win, p->mmap.img,
+			SCREENWIDTH / 20, SCREENHEIGHT / 10);
 }
 
 void	step_n_sidedist(t_play *p)

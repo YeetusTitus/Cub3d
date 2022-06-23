@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 12:58:44 by jforner           #+#    #+#             */
-/*   Updated: 2022/06/16 15:56:03 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/23 16:55:53 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	get_dir_x_y(char c, t_play *p);
 
 //parsing
 int		create_color(int *array, char *parse);
-int		options_switch2(t_play *play, char **parse, int direction[6]);
+int		options_switch2(t_play *play, char **parse, int dir[6]);
 int		options_switch(t_play *play, char **parse);
 int		param_parsing(t_play *play, char **file, int *i);
 int		parsing(t_play *play, char **argv);
@@ -178,6 +178,7 @@ int		ft_malloc_error(char **tab, int size);
 int		tablen(char **tabl);
 int		space_line(char	*str, int lenght);
 int		is_space(char c);
+int		str_is_num(char *str);
 
 //utils2
 void	freedom(t_play *play);
@@ -191,6 +192,7 @@ void	init_win(t_play *p);
 int		get_data_color(int x, int y, t_disp disp);
 void	ft_pixel_put(t_disp *display, int x, int y, int color);
 void	get_floorwall(t_play *p, int h, int *y);
+char	*tjoin(char	**tab);
 
 //event
 int		red_cross(int keycode, int x, int y, t_play *play);

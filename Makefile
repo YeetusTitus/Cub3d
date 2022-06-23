@@ -3,11 +3,17 @@ utils1.c utils2.c error.c event.c event2.c minimap.c texndda.c utils3.c
 
 DIRECTORYS = srcs/
 
+BONUSD = bonus/
+
 SRCSD =	$(addprefix ${DIRECTORYS}, $(SRCS))
+
+SRCSB =	$(addprefix ${BONUSD}, $(SRCS))
 
 EFLAGS = -Wall -Wextra -Werror -ffast-math
 
 OBJS =	${SRCSD:.c=.o}
+
+BONUSO = ${SRCSB:.c=.o}
 
 MLXHEADER = mlx/mlx.h
 
@@ -41,9 +47,13 @@ fclean:	clean
 		rm  -f ${NAME}
 		(cd libft && make fclean)
 
-mlx:	
+bonus: ${BONUSO}
+	(cd libft && make)
 	(cd mlx && make)
-	make ${NAME}
+	gcc -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSB} ${LIBFT} ${MLXL}
+	
+bonusclean:
+		rm  -f ${BONUSO}
 
 mlxclean : 
 	(cd mlx && make clean)
@@ -51,4 +61,4 @@ mlxclean :
 
 re:		fclean all
 
-.PHONY:	all clean fclean re mlx mlxclean
+.PHONY:	all clean fclean re mlx mlxclean bonus bonusclean
