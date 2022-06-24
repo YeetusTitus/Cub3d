@@ -33,6 +33,7 @@ MLXL = -Lmlx -lmlx
 ${NAME}: ${OBJS}
 	(cd libft && make)
 	(cd mlx && make)
+	make bonusclean
 	gcc -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSD} ${LIBFT} ${MLXL}
 
 
@@ -40,14 +41,14 @@ all:	${NAME}
 
 clean:
 		rm  -f ${OBJS}
-		(cd libft && make clean)
-		(cd mlx && make clean)
 
 fclean:	clean
 		rm  -f ${NAME}
+		(cd mlx && make clean)
 		(cd libft && make fclean)
 
 bonus: ${BONUSO}
+	make clean
 	(cd libft && make)
 	(cd mlx && make)
 	gcc -lmlx -framework OpenGL -framework AppKit $(EFLAGS) -o $(NAME) ${INCLUD}  ${SRCSB} ${LIBFT} ${MLXL}
