@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:46:36 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/10 13:41:34 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/27 12:49:48 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,16 @@ int	is_char_ok(char *str)
 
 void	trick_room(char **f, t_play *play, int j, int i)
 {
-	if ((f[j][i + 1] == ' ' || f[j][i + 1] == '\n' || f[j][i + 1] == '\0')
-		&& f[j][i] != '1' && f[j][i] != ' ')
-		play->error = '1';
-	if ((i > 0 && f[j][i - 1] == ' ') && f[j][i] != '1' && f[j][i] != ' ')
-		play->error = '1';
-	if (i == 0 && f[j][i + 1] != ' ' && f[j][i] != '1')
-		play->error = '1';
-	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
-		|| f[j][i] == 'W' || f[j][i] == 'S')
-			&& (i >= ft_strlen(f[j - 1]) || f[j - 1][i] == ' '))
-		play->error = '1';
-	if ((f[j][i] == '0' || f[j][i] == 'E' || f[j][i] == 'N'
-		|| f[j][i] == 'W' || f[j][i] == 'S')
-			&& (i > ft_strlen(f[j + 1]) || f[j + 1][i] == ' '))
+	if (i > 1 && f[j][i] != '1' && f[j][i] != ' ' && f[j][i + 1] != '\n')
+	{
+		if ((f[j][i + 1] == ' ' || f[j][i + 1] == '\n' || f[j][i + 1] == '\0'))
+			play->error = '1';
+		if ((i >= ft_strlen(f[j - 1]) || f[j - 1][i] == ' '))
+			play->error = '1';
+		if ((i > ft_strlen(f[j + 1]) || f[j + 1][i] == ' '))
+			play->error = '1';
+	}
+	else if (f[j][i] != '1' && f[j][i] != ' ')
 		play->error = '1';
 }
 
@@ -67,6 +63,8 @@ int	closed_room(char **file, t_play *play, int j)
 			play->error = '1';
 		else if (file[j + 1] != NULL && countline)
 			trick_room(file, play, j, i);
+		if (space_line(file[j], ft_strlen(file[j])) || !ft_strlen(file[j]))
+			play->error = '1';
 		if (play->error != '0')
 			return (1);
 	}

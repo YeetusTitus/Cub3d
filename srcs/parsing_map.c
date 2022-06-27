@@ -6,7 +6,7 @@
 /*   By: jforner <jforner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:45:17 by ktroude           #+#    #+#             */
-/*   Updated: 2022/06/15 18:24:20 by jforner          ###   ########.fr       */
+/*   Updated: 2022/06/27 12:10:09 by jforner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	verif_map(char **file, t_play *play, int i)
 {
 	int		im;
 
-	while (space_line(file[i], ft_strlen(file[i])))
+	while (file[i] && space_line(file[i], ft_strlen(file[i])))
 		i++;
 	im = i;
 	play->nbplayer = 0;
